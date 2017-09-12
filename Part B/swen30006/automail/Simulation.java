@@ -47,6 +47,7 @@ public class Simulation {
         /** Used to see whether a seed is initialized or not */
         HashMap<Boolean, Integer> seedMap = new HashMap<>();
         
+        // Will ************ new method for this shit - maybe not a hash map as well?
         /** Read the first argument and save it as a seed if it exists */
         if(args.length != 0){
 	        	int seed = Integer.parseInt(args[0]);
@@ -76,7 +77,8 @@ public class Simulation {
         }
         printResults();
     }
-    
+    // Will ************ This is weird and should be put somewhere else.......
+    // would it be to much to move this and below into a new class 
     static class ReportDelivery implements IMailDelivery {
     	
     	/** Confirm the delivery and calculate the total score */
