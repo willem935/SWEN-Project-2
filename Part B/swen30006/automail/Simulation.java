@@ -2,9 +2,11 @@ package automail;
 
 import exceptions.ExcessiveDeliveryException;
 import exceptions.MailAlreadyDeliveredException;
+import java.io.FileNotFoundException;
 import strategies.Automail;
 
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
@@ -14,32 +16,32 @@ import java.util.Properties;
  */
 public class Simulation {
 
-    /** Constant for the mail generator */
-    private static final int MAIL_TO_CREATE = 60;
     
 
     private static ArrayList<MailItem> MAIL_DELIVERED;
     private static double total_score = 0;
+    
+    private static Properties automailProperties = new Properties();
 
-    public static void main(String[] args){
-/*    	// Should probably be using properties here
-    	Properties automailProperties = new Properties();
-		// Defaults
-		automailProperties.setProperty("Name_of_Property", "20");  // Property value may need to be converted from a string to the appropriate type
+    public static void main(String[] args) throws IOException{
+        FileReader inStream = null;
 
-		FileReader inStream = null;
-		
-		try {
-			inStream = new FileReader("automail.properties");
-			automailProperties.load(inStream);
-		} finally {
-			 if (inStream != null) {
-	                inStream.close();
-	            }
-		}
-		
-		int i = Integer.parseInt(automailProperties.getProperty("Name_of_Property"));
-*/
+        try {
+                inStream = new FileReader("automail.Properties");
+                automailProperties.load(inStream);
+        } catch(FileNotFoundException e){
+            // load defaults
+            System.out.println("Couln't find automail.Properties, using default values");
+        } finally {
+                if (inStream != null) {
+                    inStream.close();
+            }
+        }
+
+        for (String key:automailProperties.stringPropertyNames()){
+            System.out.println(key + " is " + automailProperties.getProperty(key));
+        }
+
         MAIL_DELIVERED = new ArrayList<MailItem>();
                 
         /** Used to see whether a seed is initialized or not */
@@ -53,7 +55,7 @@ public class Simulation {
 	        	seedMap.put(false, 0);
         }
         Automail automail = new Automail(new ReportDelivery());
-        MailGenerator generator = new MailGenerator(MAIL_TO_CREATE, automail.mailPool, seedMap);
+        MailGenerator generator = new MailGenerator( Integer.parseInt(automailProperties.getProperty("Mail_to_Create")), automail.mailPool, seedMap);
         
         /** Initiate all the mail */
         generator.generateAllMail();
@@ -83,7 +85,8 @@ public class Simulation {
     			System.out.println("T: "+Clock.Time()+" | Delivered " + deliveryItem.toString());
     			MAIL_DELIVERED.add(deliveryItem);
     			// Calculate delivery score
-    			total_score += calculateDeliveryScore(deliveryItem);
+    			total_score += calculateDeliveryScore(deliveryItem, 
+                                Double.parseDouble(automailProperties.getProperty("Delivery_Penalty")));
     		}
     		else{
     			try {
@@ -96,9 +99,8 @@ public class Simulation {
 
     }
     
-    private static double calculateDeliveryScore(MailItem deliveryItem) {
+    private static double calculateDeliveryScore(MailItem deliveryItem, double penalty) {
     	// Penalty for longer delivery times
-    	final double penalty = 1.1;
     	double priority_weight = 0;
         // Take (delivery time - arrivalTime)**penalty * (1+sqrt(priority_weight))
     	if(deliveryItem instanceof PriorityMailItem){

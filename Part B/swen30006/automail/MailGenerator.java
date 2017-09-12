@@ -82,13 +82,6 @@ public class MailGenerator {
         return 1 + random.nextInt(Clock.LAST_DELIVERY_TIME);
     }
 
-    /**
-     * Returns a random element from an array
-     * @param array of objects
-     */
-    private Object getRandom(Object[] array){
-        return array[random.nextInt(array.length)];
-    }
 
     /**
      * This class initializes all mail and sets their corresponding values,
