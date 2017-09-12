@@ -11,7 +11,7 @@ import strategies.IRobotBehaviour;
 public class Robot {
 
 	// Will ********* added visability
-	private StorageTube tube;
+	StorageTube tube;
     private IRobotBehaviour behaviour;
     private IMailDelivery delivery;
     /** Possible states the robot can be in */

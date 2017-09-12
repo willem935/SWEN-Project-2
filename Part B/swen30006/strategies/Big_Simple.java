@@ -4,11 +4,12 @@ public class BigSimpleRobotBehaviour implements IRobotBehaviour{
 	
 	private boolean newPriority; // Used if we are notified that a priority item has arrived. 
 		
-	public SimpleRobotBehaviour() {
+	public BigSimpleRobotBehaviour() {
 		newPriority = false;
 	}
 
 	@Override
+	// Will ****** this function is painfully terrible, thinking of just using the smart behaviour here
 	public boolean fillStorageTube(IMailPool mailPool, StorageTube tube) {
 		// Priority items are important;
 		// if there are some, grab one and go, otherwise take as many items as we can and go
@@ -46,18 +47,6 @@ public class BigSimpleRobotBehaviour implements IRobotBehaviour{
     	System.out.println("T: "+Clock.Time()+" | Priority arrived");
     }
  
-	@Override
-	public boolean returnToMailRoom(StorageTube tube) {
-		// Only return if we don't have a priority item and a new one came in
-		if (tube.getSize() > 0) {
-			Boolean priority = (tube.peek() instanceof PriorityMailItem);
-			return !priority && newPriority;
-		}
-		else {
-			return false;
-		}
-	}
-	
 	
 
 }
