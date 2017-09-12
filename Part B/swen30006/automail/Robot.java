@@ -10,10 +10,12 @@ import strategies.IRobotBehaviour;
  */
 public class Robot {
 
-	StorageTube tube;
-    IRobotBehaviour behaviour;
-    IMailDelivery delivery;
+	// Will ********* added visability
+	private StorageTube tube;
+    private IRobotBehaviour behaviour;
+    private IMailDelivery delivery;
     /** Possible states the robot can be in */
+    // Will ******** should these be private?? 
     public enum RobotState { DELIVERING, WAITING, RETURNING }
     public RobotState current_state;
     private int current_floor;
@@ -34,7 +36,7 @@ public class Robot {
      */
     public Robot(IRobotBehaviour behaviour, IMailDelivery delivery, IMailPool mailPool){
         // current_state = RobotState.WAITING;
-    	current_state = RobotState.RETURNING;
+    		current_state = RobotState.RETURNING;
         current_floor = Building.MAILROOM_LOCATION;
         tube = new StorageTube();
         this.behaviour = behaviour;

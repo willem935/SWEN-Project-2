@@ -6,7 +6,7 @@ import exceptions.TubeFullException;
 
 public class SimpleRobotBehaviour implements IRobotBehaviour {
 	
-	private static final int MAX_TAKE = 4;
+	//private static final int MAX_TAKE = 4;
 	private boolean newPriority; // Used if we are notified that a priority item has arrived. 
 		
 	public SimpleRobotBehaviour() {
@@ -32,7 +32,7 @@ public class SimpleRobotBehaviour implements IRobotBehaviour {
 			}
 			else{
 				// Get as many nonpriority items as available or as fit
-				while(tube.getSize() < MAX_TAKE && mailPool.getNonPriorityPoolSize() > 0) {
+				while(tube.getSize() < tube.MAXIMUM_CAPACITY && mailPool.getNonPriorityPoolSize() > 0) {
 					tube.addItem(mailPool.getNonPriorityMail());
 				}
 				return (tube.getSize() > 0);
