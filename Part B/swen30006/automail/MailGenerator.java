@@ -43,8 +43,9 @@ public class MailGenerator {
 
     public MailGenerator(int mailToCreate, int variance, IMailPool mailPool, long seed){
             this(mailToCreate,variance, mailPool);
+            // j: need to fix this somehow
             this.random = new Random(seed);
-    
+    }
     
 
     /**
