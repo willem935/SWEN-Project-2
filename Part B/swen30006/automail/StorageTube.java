@@ -8,9 +8,9 @@ import java.util.Stack;
 /**
  * The storage tube carried by the robot.
  */
-public class StorageTube {
+public abstract class StorageTube {
 
-    public final int MAXIMUM_CAPACITY = 4;
+    private int MAXIMUM_CAPACITY = -1;
     public Stack<MailItem> tube;
 
     /**
@@ -18,7 +18,15 @@ public class StorageTube {
      */
     public StorageTube(){
         this.tube = new Stack<MailItem>();
+        setCapacity();
     }
+    
+    public abstract void setCapacity();
+    
+    public int getCapacity(){
+        return MAXIMUM_CAPACITY;
+    }
+    
 
     /**
      * @return if the storage tube is full
