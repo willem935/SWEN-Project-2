@@ -56,7 +56,7 @@ public class SmartRobotBehaviour implements IRobotBehaviour{
 	public void priorityArrival(int priority) {
     	// Record that a new one has arrived
 		newPriorityArrival++;
-    	System.out.println("T: "+Clock.Time()+" | Priority arrived");
+    	// removed print statement, added to simulation.java instead.
 		
 	}
 

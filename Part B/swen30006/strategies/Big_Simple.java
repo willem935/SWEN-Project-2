@@ -1,50 +1,96 @@
+package strategies;
 
+import java.util.Comparator;
+import java.util.ArrayList;
+
+import automail.Clock;
+import automail.MailItem;
+import automail.StorageTube;
+import exceptions.TubeFullException;
 
 public class BigSimpleRobotBehaviour implements IRobotBehaviour{
 	
 	private boolean newPriority; // Used if we are notified that a priority item has arrived. 
 		
-	public BigSimpleRobotBehaviour() {
-		newPriority = false;
-	}
+	public BigSimpleRobotBehaviour() {}
 
 	@Override
 	// Will ****** this function is painfully terrible, thinking of just using the smart behaviour here
+	// Lee **** I agree. It'd make sense that the bigger bot that can't respond
+		// to incoming priority items would at least want to move around intelligently.
+		//Implemented.
+	
 	public boolean fillStorageTube(IMailPool mailPool, StorageTube tube) {
-		// Priority items are important;
-		// if there are some, grab one and go, otherwise take as many items as we can and go
-		try{
-			// Start afresh
-			newPriority = false;
-			while(!tube.isEmpty()) {
-				mailPool.addToPool(tube.pop());
-			}
-			// Check for a top priority item
-			if (mailPool.getPriorityPoolSize() > 0) {
-				// Add priority mail item
-				tube.addItem(mailPool.getHighestPriorityMail());
-				// Go deliver that item
-				return true;
+		
+		ArrayList<MailItem> tempTube = new ArrayList<MailItem>();
+
+		// Empty my tube
+		while(!tube.tube.isEmpty()){
+			mailPool.addToPool(tube.pop());
+		}
+		
+		// Grab priority mail
+		while(tempTube.size() < tube.MAXIMUM_CAPACITY){
+			if(containMail(mailPool,MailPool.PRIORITY_POOL)){
+				tempTube.add(mailPool.getHighestPriorityMail());
 			}
 			else{
-				// Get as many nonpriority items as available or as fit
-				while(tube.getSize() < tube.MAXIMUM_CAPACITY && mailPool.getNonPriorityPoolSize() > 0) {
-					tube.addItem(mailPool.getNonPriorityMail());
+				// Fill it up with non priority
+				if(containMail(mailPool,MailPool.NON_PRIORITY_POOL)){
+					tempTube.add(mailPool.getNonPriorityMail());
 				}
-				return (tube.getSize() > 0);
+				else{
+					break;
+				}
+				
 			}
 		}
-		catch(TubeFullException e){
-			e.printStackTrace();
+		
+		// Sort tempTube based on floor
+		tempTube.sort(new ArrivalComparer());
+		
+		// Iterate through the tempTube
+		while(tempTube.iterator().hasNext()){
+			try {
+				tube.addItem(tempTube.remove(0));
+			} catch (TubeFullException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		// Check if there is anything in the tube
+		if(!tube.tube.isEmpty()){
+			newPriorityArrival = 0;
+			return true;
 		}
 		return false;
 	}
 	
+	private boolean containMail(IMailPool m, String mailPoolIdentifier){
+		if(mailPoolIdentifier.equals(MailPool.PRIORITY_POOL) && m.getPriorityPoolSize() > 0){
+			return true;
+		}
+		else if(mailPoolIdentifier.equals(MailPool.NON_PRIORITY_POOL) && m.getNonPriorityPoolSize() > 0){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	private class ArrivalComparer implements Comparator<MailItem>{
+
+		@Override
+		public int compare(MailItem m1, MailItem m2) {
+			return MailPool.compareArrival(m1, m2);
+		}
+		
+	}
+	
 	@Override
     public void priorityArrival(int priority) {
-    	// Record that a new one has arrived
-    	newPriority = true;
-    	System.out.println("T: "+Clock.Time()+" | Priority arrived");
+		//big simple doesn't respond to incoming priority item's arriving
+		//so this method shouldn't really do anything.
     }
  
 	

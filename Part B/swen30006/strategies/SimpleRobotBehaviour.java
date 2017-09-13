@@ -47,8 +47,9 @@ public class SimpleRobotBehaviour implements IRobotBehaviour {
 	@Override
     public void priorityArrival(int priority) {
     	// Record that a new one has arrived
+		// why is priority mail arrived print statement here? Moved to simulation.java
     	newPriority = true;
-    	System.out.println("T: "+Clock.Time()+" | Priority arrived");
+
     }
  
 	@Override
