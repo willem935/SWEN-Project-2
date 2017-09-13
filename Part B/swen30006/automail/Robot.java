@@ -84,7 +84,7 @@ public class Robot {
 	                    tube.pop();
 	                    deliveryCounter++;
 	                    // Will 13/9 **** removed magic number '4'
-	                    if(deliveryCounter > tube.MAXIMUM_CAPACITY){
+	                    if(deliveryCounter > tube.getCapacity()){
 	                    	throw new ExcessiveDeliveryException();
 	                    }
 	                    /** Check if want to return or if there are more items in the tube */
