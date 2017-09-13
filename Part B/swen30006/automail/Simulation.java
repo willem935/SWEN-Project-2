@@ -32,31 +32,22 @@ public class Simulation {
         } catch(FileNotFoundException e){
             // load defaults
             System.out.println("Couln't find automail.Properties, using default values");
+            loadDefaultProperties();
         } finally {
                 if (inStream != null) {
                     inStream.close();
             }
         }
 
-        for (String key:automailProperties.stringPropertyNames()){
-            System.out.println(key + " is " + automailProperties.getProperty(key));
-        }
-
         MAIL_DELIVERED = new ArrayList<MailItem>();
-                
-        /** Used to see whether a seed is initialized or not */
-        HashMap<Boolean, Integer> seedMap = new HashMap<>();
         
-        // Will ************ new method for this shit - maybe not a hash map as well?
-        /** Read the first argument and save it as a seed if it exists */
-        if(args.length != 0){
-	        	int seed = Integer.parseInt(args[0]);
-	        	seedMap.put(true, seed);
-        } else{
-	        	seedMap.put(false, 0);
-        }
+        
         Automail automail = new Automail(new ReportDelivery());
-        MailGenerator generator = new MailGenerator( Integer.parseInt(automailProperties.getProperty("Mail_to_Create")), automail.mailPool, seedMap);
+        // Will ************ new method for this shit - maybe not a hash map as well?
+        // Jason: done :)
+        
+        MailGenerator generator = makeGenerator(automail, args);
+        
         
         /** Initiate all the mail */
         generator.generateAllMail();
@@ -81,6 +72,28 @@ public class Simulation {
         }
         printResults();
     }
+    /**
+     * 
+     * @param automail 
+     * @param args command line args. Used to check for seed
+     * @return
+     */
+    private static MailGenerator makeGenerator(Automail automail, String[] args) {
+        int mailToCreate = Integer.parseInt(automailProperties.getProperty("Mail_to_Create"));
+        int mailVariance = Integer.parseInt(automailProperties.getProperty("Mail_Count_Percentage_Variation"));
+        long seed;
+        // prioritize properties seed over command line
+        if(automailProperties.containsKey("Seed")){
+            seed = Long.parseLong(automailProperties.getProperty("Seed"));
+            return new MailGenerator(mailToCreate, mailVariance, automail.mailPool, seed);
+        }else if(args.length != 0){
+            seed = Long.parseLong(args[0]);
+            return new MailGenerator(mailToCreate, mailVariance, automail.mailPool, seed);
+        }else{
+            return new MailGenerator(mailToCreate, mailVariance, automail.mailPool);
+        }
+    }
+
     // Will ************ This is weird and should be put somewhere else.......
     // would it be to much to move this and below into a new class 
     static class ReportDelivery implements IMailDelivery {
@@ -119,5 +132,20 @@ public class Simulation {
         System.out.println("T: "+Clock.Time()+" | Simulation complete!");
         System.out.println("Final Delivery time: "+Clock.Time());
         System.out.printf("Final Score: %.2f%n", total_score);
+    }
+    
+    /**
+     * use to set properties if no file found
+     */
+    private static void loadDefaultProperties() {
+        automailProperties.setProperty("Number_of_Floors", "9");
+        automailProperties.setProperty("Lowest_Floor", "1");
+        automailProperties.setProperty("Location_of_MailRoom", "1");
+        automailProperties.setProperty("Delivery_Penalty", "1.1");
+        automailProperties.setProperty("Last_Delivery_Time", "100");
+        automailProperties.setProperty("Mail_to_Create", "60");
+        automailProperties.setProperty("Mail_Count_Percentage_Variation", "20");
+        automailProperties.setProperty("Priority_Mail_is_One_in", "6");
+        automailProperties.setProperty("Robot_Type", "Small_Comms_Simple");
     }
 }

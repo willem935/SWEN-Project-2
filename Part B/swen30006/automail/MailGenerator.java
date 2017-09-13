@@ -27,20 +27,24 @@ public class MailGenerator {
      * @param mailPool where mail items go on arrival
      * @param seed random seed for generating mail
      */
-    public MailGenerator(int mailToCreate, IMailPool mailPool, HashMap<Boolean,Integer> seed){
-        if(seed.containsKey(true)){
-        	this.random = new Random((long) seed.get(true));
-        }
-        else{
-        	this.random = new Random();	
-        }
-        // Vary arriving mail by +/-20%
-        MAIL_TO_CREATE = mailToCreate*4/5 + random.nextInt(mailToCreate*2/5);
+    
+    public MailGenerator(int mailToCreate, int variance, IMailPool mailPool){
+
+        this.random = new Random();
+
+        // Vary arriving mail by +/-variance%
+        MAIL_TO_CREATE = mailToCreate*(1-variance/100)+ random.nextInt(mailToCreate*(variance/100));
         // System.out.println("Num Mail Items: "+MAIL_TO_CREATE);
         mailCreated = 0;
         complete = false;
         allMail = new HashMap<Integer,ArrayList<MailItem>>();
         this.mailPool = mailPool;
+    }
+
+    public MailGenerator(int mailToCreate, int variance, IMailPool mailPool, long seed){
+            this(mailToCreate,variance, mailPool);
+            this.random = new Random(seed);
+    
     }
 
     /**
