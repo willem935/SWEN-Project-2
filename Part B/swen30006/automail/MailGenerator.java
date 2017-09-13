@@ -45,7 +45,7 @@ public class MailGenerator {
             this(mailToCreate,variance, mailPool);
             this.random = new Random(seed);
     
-    }
+    
 
     /**
      * @return a new mail item that needs to be delivered

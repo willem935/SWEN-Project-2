@@ -24,20 +24,7 @@ public class Simulation {
     private static Properties automailProperties = new Properties();
 
     public static void main(String[] args) throws IOException{
-        FileReader inStream = null;
-
-        try {
-                inStream = new FileReader("automail.Properties");
-                automailProperties.load(inStream);
-        } catch(FileNotFoundException e){
-            // load defaults
-            System.out.println("Couln't find automail.Properties, using default values");
-            loadDefaultProperties();
-        } finally {
-                if (inStream != null) {
-                    inStream.close();
-            }
-        }
+        loadProperties();
 
         MAIL_DELIVERED = new ArrayList<MailItem>();
         
@@ -74,6 +61,23 @@ public class Simulation {
             Clock.Tick();
         }
         printResults();
+    }
+
+    private static void loadProperties() throws IOException {
+        FileReader inStream = null;
+        
+        try {
+            inStream = new FileReader("automail.Properties");
+            automailProperties.load(inStream);
+        } catch(FileNotFoundException e){
+            // load defaults
+            System.out.println("Couln't find automail.Properties, using default values");
+            loadDefaultProperties();
+        } finally {
+            if (inStream != null) {
+                inStream.close();
+            }
+        }
     }
     /**
      * 
