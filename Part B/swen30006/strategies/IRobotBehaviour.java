@@ -20,5 +20,12 @@ public interface IRobotBehaviour {
      * @param tube refers to the pack the robot uses to deliver mail.
      * @return Return true to indicate that the robot is ready to start delivering.
      */
-	public boolean fillStorageTube(IMailPool mailPool, StorageTube tube);
+    public boolean fillStorageTube(IMailPool mailPool, StorageTube tube);
+    
+    /**
+     * 
+     * @return StorageTube of appropriate type for behaviour
+     */
+    
+    public StorageTube getTube();
 }

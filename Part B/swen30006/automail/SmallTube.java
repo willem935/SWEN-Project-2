@@ -12,7 +12,7 @@ public class SmallTube extends StorageTube{
 
     @Override
     public void setCapacity() {
-        this.MAXIMUM_CAPACITY = 4;
+        super.MAXIMUM_CAPACITY = 4;
     }
     
 

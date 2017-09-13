@@ -11,7 +11,7 @@ import strategies.IRobotBehaviour;
 public class Robot {
 
 	// Will ********* added visability
-	StorageTube tube;
+    StorageTube tube;
     private IRobotBehaviour behaviour;
     private IMailDelivery delivery;
     /** Possible states the robot can be in */
@@ -38,8 +38,8 @@ public class Robot {
         // current_state = RobotState.WAITING;
     		current_state = RobotState.RETURNING;
         current_floor = Building.MAILROOM_LOCATION;
-        tube = new StorageTube();
         this.behaviour = behaviour;
+        tube = behaviour.getTube();
         this.delivery = delivery;
         this.mailPool = mailPool;
         this.deliveryCounter = 0;
