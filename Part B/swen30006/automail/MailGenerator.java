@@ -129,7 +129,8 @@ public class MailGenerator {
         if(this.allMail.containsKey(Clock.Time())){
             for(MailItem mailItem : allMail.get(Clock.Time())){
                 mailPool.addToPool(mailItem);
-                if (mailItem instanceof PriorityMailItem) priority = ((PriorityMailItem) mailItem).getPriorityLevel();
+                //removed casting on right hand side of = due to change in mailItem getPriorityLevel()
+                if (mailItem instanceof PriorityMailItem) priority = mailItem.getPriorityLevel();
                 System.out.println("T: "+Clock.Time()+" | Arrive    " + mailItem.toString());
             }
         }

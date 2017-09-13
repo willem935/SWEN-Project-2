@@ -50,6 +50,15 @@ public class MailItem {
         return ID;
     }
 
+    /* Gives regular mail items a priority of 0 so we don't have to constantly
+     * check for instances of prioritymailitems whenever we want to calculate
+     * priority levels.
+     * return 0. overridden by prioritymailitem objects when necessary
+     */
+    public int getPriorityLevel(){
+    	return 0;
+    }
+    
     /**
      *
      * @return the arrival time of the mail item

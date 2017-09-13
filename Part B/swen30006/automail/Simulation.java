@@ -127,11 +127,9 @@ public class Simulation {
     
     private static double calculateDeliveryScore(MailItem deliveryItem, double penalty) {
     	// Penalty for longer delivery times
-    	double priority_weight = 0;
+    	double priority_weight = deliveryItem.getPriorityLevel();
         // Take (delivery time - arrivalTime)**penalty * (1+sqrt(priority_weight))
-    	if(deliveryItem instanceof PriorityMailItem){
-    		priority_weight = ((PriorityMailItem) deliveryItem).getPriorityLevel();
-    	}
+    	
         return Math.pow(Clock.Time() - deliveryItem.getArrivalTime(),penalty)*(1+Math.sqrt(priority_weight));
     }
 
