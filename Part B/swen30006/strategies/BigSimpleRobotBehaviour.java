@@ -30,7 +30,7 @@ public class BigSimpleRobotBehaviour implements IRobotBehaviour{
 		}
 		
 		// Grab priority mail
-		while(tempTube.size() < tube.MAXIMUM_CAPACITY){
+		while(tempTube.size() < tube.getCapacity()){
 			if(containMail(mailPool,MailPool.PRIORITY_POOL)){
 				tempTube.add(mailPool.getHighestPriorityMail());
 			}
@@ -105,10 +105,4 @@ public class BigSimpleRobotBehaviour implements IRobotBehaviour{
  
 	
 
-}
-
-	
-	
-	
-	
 }

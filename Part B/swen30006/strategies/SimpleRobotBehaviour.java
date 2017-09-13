@@ -32,7 +32,7 @@ public class SimpleRobotBehaviour implements IRobotBehaviour {
 			}
 			else{
 				// Get as many nonpriority items as available or as fit
-				while(tube.getSize() < tube.MAXIMUM_CAPACITY && mailPool.getNonPriorityPoolSize() > 0) {
+				while(tube.getSize() < tube.getCapacity() && mailPool.getNonPriorityPoolSize() > 0) {
 					tube.addItem(mailPool.getNonPriorityMail());
 				}
 				return (tube.getSize() > 0);

@@ -10,7 +10,6 @@ import java.util.Stack;
  */
 public abstract class StorageTube {
 
-    public int MAXIMUM_CAPACITY = -1;
     public Stack<MailItem> tube;
 
     /**
@@ -18,21 +17,17 @@ public abstract class StorageTube {
      */
     public StorageTube(){
         this.tube = new Stack<MailItem>();
-        setCapacity();
     }
     
-    public abstract void setCapacity();
-    
-    public int getCapacity(){
-        return MAXIMUM_CAPACITY;
-    }
+    public abstract int getCapacity();
     
 
     /**
+     * j: Changed tube.capacity() -> tube.size() so acts as expected 
      * @return if the storage tube is full
      */
     public boolean isFull(){
-        return tube.capacity() == MAXIMUM_CAPACITY;
+        return tube.size() == getCapacity();
     }
 
     /**
@@ -56,7 +51,7 @@ public abstract class StorageTube {
      */
     public void addItem(MailItem item) throws TubeFullException {
         int current = getSize();
-        if(current + 1 <= MAXIMUM_CAPACITY){
+        if(current + 1 <= getCapacity()){
         	tube.add(item);
         } else {
             throw new TubeFullException();

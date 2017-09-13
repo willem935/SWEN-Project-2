@@ -1,9 +1,6 @@
 package automail;
 
 // import exceptions.RobotNotInMailRoomException;
-import exceptions.TubeFullException;
-
-import java.util.Stack;
 
 /**
  * The storage tube carried by the robot.
@@ -11,8 +8,8 @@ import java.util.Stack;
 public class SmallTube extends StorageTube{
 
     @Override
-    public void setCapacity() {
-        super.MAXIMUM_CAPACITY = 4;
+    public int getCapacity() {
+        return 4;
     }
     
 
