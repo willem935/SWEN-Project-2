@@ -40,25 +40,9 @@ public class Simulation {
         generator.generateAllMail();
         int priority;
         while(MAIL_DELIVERED.size() != generator.MAIL_TO_CREATE) {
-        	//System.out.println("-- Step: "+Clock.Time());
             priority = generator.step();
-            if (priority > 0) {
-            	automail.robot.getBehaviour().priorityArrival(priority);
-            	//LEE : added print statement here, removed from robot behaviors.
-            	// seems that it makes more sense to be here instead of having
-            	// each robot do it individually.
-            	System.out.println("T: "+Clock.Time()+" | Priority arrived");
-            }
-            
-            try {
-            	
-				automail.robot.step();
-			} catch (ExcessiveDeliveryException e) {
-				e.printStackTrace();
-				System.out.println("Simulation unable to complete..");
-				System.exit(0);
-			}
-            Clock.Tick();
+            automail.step(priority);
+        
         }
         printResults();
     }
