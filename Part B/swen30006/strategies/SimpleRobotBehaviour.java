@@ -1,6 +1,6 @@
 package strategies;
-import automail.Clock;
 import automail.PriorityMailItem;
+import automail.SmallTube;
 import automail.StorageTube;
 import exceptions.TubeFullException;
 
@@ -63,6 +63,11 @@ public class SimpleRobotBehaviour implements IRobotBehaviour {
 			return false;
 		}
 	}
+
+    @Override
+    public StorageTube getTube() {
+        return new SmallTube();
+    }
 	
 	
 

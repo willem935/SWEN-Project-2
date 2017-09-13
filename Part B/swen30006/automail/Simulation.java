@@ -43,7 +43,7 @@ public class Simulation {
         	//System.out.println("-- Step: "+Clock.Time());
             priority = generator.step();
             if (priority > 0) {
-            	automail.robot.behaviour.priorityArrival(priority);
+            	automail.robot.getBehaviour().priorityArrival(priority);
             	//LEE : added print statement here, removed from robot behaviors.
             	// seems that it makes more sense to be here instead of having
             	// each robot do it individually.

@@ -143,5 +143,9 @@ public class Robot {
     	}
     }
     
+    public IRobotBehaviour getBehaviour(){
+        return behaviour;
+    }
+    
 
 }

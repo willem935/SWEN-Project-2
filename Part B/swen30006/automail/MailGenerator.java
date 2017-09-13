@@ -33,7 +33,10 @@ public class MailGenerator {
         this.random = new Random();
 
         // Vary arriving mail by +/-variance%
-        MAIL_TO_CREATE = mailToCreate*(1-variance/100)+ random.nextInt(mailToCreate*(variance/100));
+        float variance_fraction = ((float) 20)/100;
+        int lower_bound = Math.round(mailToCreate*(1-variance_fraction));
+        int upper_bound = Math.round(mailToCreate*variance_fraction);
+        MAIL_TO_CREATE = lower_bound+ random.nextInt(upper_bound);
         // System.out.println("Num Mail Items: "+MAIL_TO_CREATE);
         mailCreated = 0;
         complete = false;
@@ -43,8 +46,7 @@ public class MailGenerator {
 
     public MailGenerator(int mailToCreate, int variance, IMailPool mailPool, long seed){
             this(mailToCreate,variance, mailPool);
-            // j: need to fix this somehow
-            this.random = new Random(seed);
+            random.setSeed(seed);
     }
     
 

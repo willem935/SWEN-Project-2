@@ -3,9 +3,9 @@ package strategies;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import automail.Clock;
 import automail.MailItem;
 import automail.PriorityMailItem;
+import automail.SmallTube;
 import automail.StorageTube;
 import exceptions.TubeFullException;
 
@@ -118,6 +118,11 @@ public class SmartRobotBehaviour implements IRobotBehaviour{
 			return false;
 		}
 	}
+
+    @Override
+    public StorageTube getTube() {
+        return new SmallTube();
+    }
 	
 	private class ArrivalComparer implements Comparator<MailItem>{
 

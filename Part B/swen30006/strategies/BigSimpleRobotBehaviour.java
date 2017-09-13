@@ -1,9 +1,9 @@
 package strategies;
 
+import automail.BigTube;
 import java.util.Comparator;
 import java.util.ArrayList;
 
-import automail.Clock;
 import automail.MailItem;
 import automail.StorageTube;
 import exceptions.TubeFullException;
@@ -77,6 +77,16 @@ public class BigSimpleRobotBehaviour implements IRobotBehaviour{
 			return false;
 		}
 	}
+
+    @Override
+    public boolean returnToMailRoom(StorageTube tube) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public StorageTube getTube() {
+        return new BigTube();
+    }
 	
 	private class ArrivalComparer implements Comparator<MailItem>{
 
