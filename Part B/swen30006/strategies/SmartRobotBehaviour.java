@@ -37,7 +37,7 @@ public class SmartRobotBehaviour implements IRobotBehaviour{
 			}
 			else{
 				// Check if there is more than 1 priority arrival and the size of the tube is greater than or equal to half
-				if(newPriorityArrival > 1 && tube.getSize() >= tube.MAXIMUM_CAPACITY/2){
+				if(newPriorityArrival > 1 && tube.getSize() >= tube.getCapacity()/2){
 
 					return true;
 				}
@@ -71,7 +71,7 @@ public class SmartRobotBehaviour implements IRobotBehaviour{
 		}
 		
 		// Grab priority mail
-		while(tempTube.size() < tube.MAXIMUM_CAPACITY){
+		while(tempTube.size() < tube.getCapacity()){
 			if(containMail(mailPool,MailPool.PRIORITY_POOL)){
 				tempTube.add(mailPool.getHighestPriorityMail());
 			}

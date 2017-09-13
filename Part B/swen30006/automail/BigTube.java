@@ -7,8 +7,8 @@ package automail;
 public class BigTube extends StorageTube{
 
     @Override
-    public void setCapacity() {
-        this.MAXIMUM_CAPACITY = 6;
+    public int getCapacity() {
+        return 6;
     }
     
 
