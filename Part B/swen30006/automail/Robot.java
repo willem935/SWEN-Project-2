@@ -16,13 +16,13 @@ import strategies.IRobotBehaviour;
 public class Robot {
 
 	// Will ********* added visability
-    StorageTube tube;
+    private StorageTube tube;
     private IRobotBehaviour behaviour;
     private IMailDelivery delivery;
     /** Possible states the robot can be in */
     // Will ******** should these be private?? 
-    public enum RobotState { DELIVERING, WAITING, RETURNING }
-    public RobotState current_state;
+    private enum RobotState { DELIVERING, WAITING, RETURNING }
+    private RobotState current_state;
     private int current_floor;
     private int destination_floor;
     private IMailPool mailPool;

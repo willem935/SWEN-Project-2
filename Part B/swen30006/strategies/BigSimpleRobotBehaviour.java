@@ -60,7 +60,7 @@ public class BigSimpleRobotBehaviour implements IRobotBehaviour{
 		
 		// Check if there is anything in the tube
 		if(!tube.tube.isEmpty()){
-			newPriorityArrival = 0;
+			//newPriorityArrival = 0;
 			return true;
 		}
 		return false;
