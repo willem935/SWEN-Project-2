@@ -1,10 +1,15 @@
 package automail;
 
+
+
 import exceptions.ExcessiveDeliveryException;
 import exceptions.TubeFullException;
 import strategies.IMailPool;
 import strategies.IRobotBehaviour;
 
+
+
+// note 
 /**
  * The robot delivers mail!
  */
@@ -85,7 +90,7 @@ public class Robot {
 	                    deliveryCounter++;
 	                    // Will 13/9 **** removed magic number '4'
 	                    if(deliveryCounter > tube.getCapacity()){
-	                    	throw new ExcessiveDeliveryException();
+	                    		throw new ExcessiveDeliveryException();
 	                    }
 	                    /** Check if want to return or if there are more items in the tube */
 	                    if(tube.isEmpty() || behaviour.returnToMailRoom(tube)){ // No items or robot requested return
@@ -106,7 +111,6 @@ public class Robot {
 		    			}
 	    			}
 	    			
-	    			// Will 13/9 **** is it worth putting an error here as it should never reach this break.
 	            break;
 	    	}
     }
@@ -136,13 +140,13 @@ public class Robot {
      * @param nextState
      */
     private void changeState(RobotState nextState){
-    	if (current_state != nextState) {
-    		System.out.println("T: "+Clock.Time()+" | Robot changed from "+current_state+" to "+nextState);
-    	}
-    	current_state = nextState;
-    	if(nextState == RobotState.DELIVERING){
-    		System.out.println("T: "+Clock.Time()+" | Deliver   " + deliveryItem.toString());
-    	}
+	    	if (current_state != nextState) {
+	    		System.out.println("T: "+Clock.Time()+" | Robot changed from "+current_state+" to "+nextState);
+	    	}
+	    	current_state = nextState;
+	    	if(nextState == RobotState.DELIVERING){
+	    		System.out.println("T: "+Clock.Time()+" | Deliver   " + deliveryItem.toString());
+	    	}
     }
     
     public IRobotBehaviour getBehaviour(){

@@ -29,7 +29,7 @@ public class Automail {
     
     public void step(int priority){
         // Jason: moved from while loop in Simulation
-        //System.out.println("-- Step: "+Clock.Time());
+        // System.out.println("-- Step: "+Clock.Time());
         if (priority > 0) {
             robot.getBehaviour().priorityArrival(priority);
             //LEE : added print statement here, removed from robot behaviors.

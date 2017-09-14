@@ -89,23 +89,23 @@ public class Simulation {
     // would it be to much to move this and below into a new class 
     static class ReportDelivery implements IMailDelivery {
     	
-    	/** Confirm the delivery and calculate the total score */
-    	public void deliver(MailItem deliveryItem){
-    		if(!MAIL_DELIVERED.contains(deliveryItem)){
-    			System.out.println("T: "+Clock.Time()+" | Delivered " + deliveryItem.toString());
-    			MAIL_DELIVERED.add(deliveryItem);
-    			// Calculate delivery score
-    			total_score += calculateDeliveryScore(deliveryItem, 
-                                Double.parseDouble(automailProperties.getProperty("Delivery_Penalty")));
-    		}
-    		else{
-    			try {
-    				throw new MailAlreadyDeliveredException();
-    			} catch (MailAlreadyDeliveredException e) {
-    				e.printStackTrace();
-    			}
-    		}
-    	}
+	    	/** Confirm the delivery and calculate the total score */
+	    	public void deliver(MailItem deliveryItem){
+	    		if(!MAIL_DELIVERED.contains(deliveryItem)){
+	    			System.out.println("T: "+Clock.Time()+" | Delivered " + deliveryItem.toString());
+	    			MAIL_DELIVERED.add(deliveryItem);
+	    			// Calculate delivery score
+	    			total_score += calculateDeliveryScore(deliveryItem, 
+	                                Double.parseDouble(automailProperties.getProperty("Delivery_Penalty")));
+	    		}
+	    		else{
+	    			try {
+	    				throw new MailAlreadyDeliveredException();
+	    			} catch (MailAlreadyDeliveredException e) {
+	    				e.printStackTrace();
+	    			}
+	    		}
+	    	}
 
     }
     
