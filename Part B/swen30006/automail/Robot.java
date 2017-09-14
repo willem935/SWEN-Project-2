@@ -75,11 +75,11 @@ public class Robot {
 	                // System.out.println("Tube total size: "+tube.getTotalOfSizes());
 	                /** If the StorageTube is ready and the Robot is waiting in the mailroom then start the delivery */
 	                if(go){
-	                	
-	                	deliveryCounter = 0; // reset delivery counter
-	                	setRoute();
-	                	changeState(RobotState.DELIVERING);
+		                	deliveryCounter = 0; // reset delivery counter
+		                	setRoute();
+		                	changeState(RobotState.DELIVERING);
 	                }
+	                
 	                break;
 	    		case DELIVERING:
 	    			/** Check whether or not the call to return is triggered manually **/
