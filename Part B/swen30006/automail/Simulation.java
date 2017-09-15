@@ -17,7 +17,7 @@ import java.util.Properties;
 public class Simulation {
 
     
-
+	private static String fileName = "automail.Properties";
     private static ArrayList<MailItem> MAIL_DELIVERED;
     private static double total_score = 0;
     
@@ -51,7 +51,7 @@ public class Simulation {
     
     
     private static void loadProperties() throws IOException {
-        FileReader inStream = new FileReader("automail.Properties");
+        FileReader inStream = new FileReader(fileName);
         automailProperties.load(inStream);
         inStream.close();
     }
