@@ -28,11 +28,10 @@ public class Simulation {
 
         MAIL_DELIVERED = new ArrayList<MailItem>();
         
-        
-        Automail automail = new Automail(new ReportDelivery());
-        // Will ************ new method for this shit - maybe not a hash map as well?
-        // Jason: done :)
-        
+        int buildingFloors = Integer.parseInt(automailProperties.getProperty("Number_of_Floors"));
+        int mRFloor = Integer.parseInt(automailProperties.getProperty("Location_of_MailRoom"));
+        int lowFloor = Integer.parseInt(automailProperties.getProperty("Bottom_Floor"));
+        Automail automail = new Automail(new ReportDelivery(), buildingFloors, lowFloor, mRFloor);
         MailGenerator generator = makeGenerator(automail, args);
         
         
@@ -68,12 +67,15 @@ public class Simulation {
         // prioritize properties seed over command line
         if(automailProperties.containsKey("Seed")){
             seed = Long.parseLong(automailProperties.getProperty("Seed"));
-            return new MailGenerator(mailToCreate, mailVariance, automail.mailPool, seed);
+            return new MailGenerator(mailToCreate, mailVariance, 
+                    automail.getMailPool(), automail.getBuilding(), seed);
         }else if(args.length != 0){
             seed = Long.parseLong(args[0]);
-            return new MailGenerator(mailToCreate, mailVariance, automail.mailPool, seed);
+            return new MailGenerator(mailToCreate, mailVariance, 
+                    automail.getMailPool(), automail.getBuilding(), seed);
         }else{
-            return new MailGenerator(mailToCreate, mailVariance, automail.mailPool);
+            return new MailGenerator(mailToCreate, mailVariance, 
+                    automail.getMailPool(), automail.getBuilding());
         }
     }
 

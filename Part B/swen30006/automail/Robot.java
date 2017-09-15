@@ -26,6 +26,7 @@ public class Robot {
     private int current_floor;
     private int destination_floor;
     private IMailPool mailPool;
+    private Building building;
     
     private MailItem deliveryItem;
     
@@ -38,11 +39,13 @@ public class Robot {
      * @param behaviour governs selection of mail items for delivery and behaviour on priority arrivals
      * @param delivery governs the final delivery
      * @param mailPool is the source of mail items
+     * @param building building the robot is working in
      */
-    public Robot(IRobotBehaviour behaviour, IMailDelivery delivery, IMailPool mailPool){
+    public Robot(IRobotBehaviour behaviour, IMailDelivery delivery, IMailPool mailPool, Building building){
         // current_state = RobotState.WAITING;
     	current_state = RobotState.RETURNING;
-        current_floor = Building.MAILROOM_LOCATION;
+        this.building = building;
+        current_floor = building.getMailRoomLocation();
         this.behaviour = behaviour;
         tube = behaviour.getTube();
         this.delivery = delivery;
@@ -62,11 +65,11 @@ public class Robot {
 	    		/** This state is triggered when the robot is returning to the mailroom after a delivery */
 	    		case RETURNING:
 	    			/** If its current position is at the mailroom, then the robot should change state */
-	                if(current_floor == Building.MAILROOM_LOCATION){
+	                if(current_floor == building.getMailRoomLocation()){
 	                	changeState(RobotState.WAITING);
 	                } else {
 	                	/** If the robot is not at the mailroom floor yet, then move towards it! */
-	                    moveTowards(Building.MAILROOM_LOCATION);
+	                    moveTowards(building.getMailRoomLocation());
 	                	break;
 	                }
 	    		case WAITING:

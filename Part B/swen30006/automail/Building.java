@@ -1,15 +1,34 @@
 package automail;
 
 public class Building {
-	/*
-	
-    /** The number of floors in the building **/
-    public static final int FLOORS = 9;
+
+
+    private int floors;
     
     /** Represents the ground floor location */
-    public static final int LOWEST_FLOOR = 1;
+    private int lowestFloor;
     
     /** Represents the mailroom location */
-    public static final int MAILROOM_LOCATION = 1;
+   private int mailRoomLocation;
+   
+   public Building(int floors, int lowestFloor, int mailRoomLocation){
+       this.floors = floors;
+       this.lowestFloor = lowestFloor;
+       this.mailRoomLocation = mailRoomLocation;
+   }
+   
+    public int getFloors() {
+        return floors;
+    }
+
+    public int getLowestFloor() {
+        return lowestFloor;
+    }
+
+    /*
+    /** The number of floors in the building **/
+    public int getMailRoomLocation() {
+        return mailRoomLocation;
+    }
 
 }

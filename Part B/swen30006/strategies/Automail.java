@@ -1,5 +1,6 @@
 package strategies;
 
+import automail.Building;
 import automail.Clock;
 import automail.IMailDelivery;
 import automail.Robot;
@@ -7,23 +8,23 @@ import exceptions.ExcessiveDeliveryException;
 
 public class Automail {
 	      
-    public Robot robot;
-    public IMailPool mailPool;
+    private Robot robot;
+    private IMailPool mailPool;
+    private Building building;
     
-    public Automail(IMailDelivery delivery) {
-    	// Swap between simple provided strategies and your strategies here
-    	    	
+    public Automail(IMailDelivery delivery, int floors, int lowestFloor, int mailRoomLocation) {
+    	// jason: still to do
+        //          make robot dynamically
     	/** Initialize the MailPool */
     	mailPool = new MailPool();
     	
         /** Initialize the RobotAction */
-        // Jason: need to make this change dynamic based on specified property
-        // maybe add a parameter to the constructor? 
     	// IRobotBehaviour robotBehaviour = new SimpleRobotBehaviour();
     	IRobotBehaviour robotBehaviour = new SmartRobotBehaviour();
     	    	
     	/** Initialize robot */
-    	robot = new Robot(robotBehaviour, delivery, mailPool);
+        building = new Building(floors, lowestFloor, mailRoomLocation);
+    	robot = new Robot(robotBehaviour, delivery, mailPool, building);
     	
     }
     
@@ -47,5 +48,16 @@ public class Automail {
         }
         Clock.Tick();
     }
+    
+    public IMailPool getMailPool(){
+        return mailPool;
+    }
+    
+    public Building getBuilding(){
+        return building;
+    }
+    
+    
+    
     
 }
