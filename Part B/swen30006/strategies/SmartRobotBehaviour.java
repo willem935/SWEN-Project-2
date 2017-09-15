@@ -75,8 +75,8 @@ public class SmartRobotBehaviour implements IRobotBehaviour{
 		//int cap = tube.getCapacity();
 		while( tempTube.size()  < tube.getCapacity()){
 			// Will 14/9 **** trying to avoid using containMail but its throwing errors.
-			// if(mailPool.getPriorityPoolSize() > 0){
-			if(containMail(mailPool,MailPool.PRIORITY_POOL)){
+			if(mailPool.getPriorityPoolSize() > 0){
+			//if(containMail(mailPool,MailPool.PRIORITY_POOL)){
 				tempTube.add(mailPool.getHighestPriorityMail());
 			}
 			else {

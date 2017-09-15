@@ -51,20 +51,9 @@ public class Simulation {
     
     
     private static void loadProperties() throws IOException {
-        FileReader inStream = null;
-        
-        try {
-            inStream = new FileReader("automail/automail.Properties");
-            automailProperties.load(inStream);
-        } catch(FileNotFoundException e){
-            // load defaults
-            System.out.println("Couln't find automail.Properties, using default values");
-            loadDefaultProperties();
-        } finally {
-            if (inStream != null) {
-                inStream.close();
-            }
-        }
+        FileReader inStream = new FileReader("automail.Properties");
+        automailProperties.load(inStream);
+        inStream.close();
     }
     /**
      * 
@@ -124,20 +113,5 @@ public class Simulation {
         System.out.println("T: "+Clock.Time()+" | Simulation complete!");
         System.out.println("Final Delivery time: "+Clock.Time());
         System.out.printf("Final Score: %.2f%n", total_score);
-    }
-    
-    /**
-     * use to set properties if no file found
-     */
-    private static void loadDefaultProperties() {
-        automailProperties.setProperty("Number_of_Floors", "9");
-        automailProperties.setProperty("Lowest_Floor", "1");
-        automailProperties.setProperty("Location_of_MailRoom", "1");
-        automailProperties.setProperty("Delivery_Penalty", "1.1");
-        automailProperties.setProperty("Last_Delivery_Time", "100");
-        automailProperties.setProperty("Mail_to_Create", "60");
-        automailProperties.setProperty("Mail_Count_Percentage_Variation", "20");
-        automailProperties.setProperty("Priority_Mail_is_One_in", "6");
-        automailProperties.setProperty("Robot_Type", "Small_Comms_Simple");
     }
 }
