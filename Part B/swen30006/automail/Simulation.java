@@ -1,15 +1,15 @@
 package automail;
 
-import exceptions.ExcessiveDeliveryException;
 import exceptions.MailAlreadyDeliveredException;
-import java.io.FileNotFoundException;
 import strategies.Automail;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Properties;
+import strategies.BigSimpleRobotBehaviour;
+import strategies.SimpleRobotBehaviour;
+import strategies.SmartRobotBehaviour;
 
 /**
  * This class simulates the behaviour of AutoMail
@@ -17,7 +17,7 @@ import java.util.Properties;
 public class Simulation {
 
     
-	private static String fileName = "automail.Properties";
+    private static final String FILENAME = "automail.Properties";
     private static ArrayList<MailItem> MAIL_DELIVERED;
     private static double total_score = 0;
     
@@ -28,15 +28,28 @@ public class Simulation {
 
         MAIL_DELIVERED = new ArrayList<MailItem>();
         
+        // get the building properties to give to Automail
         int buildingFloors = Integer.parseInt(automailProperties.getProperty("Number_of_Floors"));
         int mRFloor = Integer.parseInt(automailProperties.getProperty("Location_of_MailRoom"));
         int lowFloor = Integer.parseInt(automailProperties.getProperty("Bottom_Floor"));
-        Automail automail = new Automail(new ReportDelivery(), buildingFloors, lowFloor, mRFloor);
+        
+        
+        String behaviourName = automailProperties.getProperty("Robot_Type");
+        
+        // all robot behaviours that Automail knows about
+        // should probably put this in its own method, here or in Automail
+        Automail.addBehaviour("Small_Comms_Simple", new SimpleRobotBehaviour());
+        Automail.addBehaviour("Small_Comms_Smart", new SmartRobotBehaviour());
+        Automail.addBehaviour("Big_Smart", new BigSimpleRobotBehaviour());
+        
+        Automail automail = new Automail(new ReportDelivery(), buildingFloors, lowFloor, mRFloor, behaviourName);
         MailGenerator generator = makeGenerator(automail, args);
         
         
         /** Initiate all the mail */
         generator.generateAllMail();
+        
+        // run the simulation until all mail is delivered
         int priority;
         while(MAIL_DELIVERED.size() != generator.MAIL_TO_CREATE) {
             priority = generator.step();
@@ -50,7 +63,7 @@ public class Simulation {
     
     
     private static void loadProperties() throws IOException {
-        FileReader inStream = new FileReader(fileName);
+        FileReader inStream = new FileReader(FILENAME);
         automailProperties.load(inStream);
         inStream.close();
     }

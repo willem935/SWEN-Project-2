@@ -80,7 +80,8 @@ public class BigSimpleRobotBehaviour implements IRobotBehaviour{
 
     @Override
     public boolean returnToMailRoom(StorageTube tube) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // big simple doesn't know about new arrivals, so never returns early
+        return false;
     }
 
     @Override

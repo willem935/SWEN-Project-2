@@ -5,22 +5,59 @@ import automail.Clock;
 import automail.IMailDelivery;
 import automail.Robot;
 import exceptions.ExcessiveDeliveryException;
+import java.util.HashMap;
 
 public class Automail {
 	      
     private Robot robot;
     private IMailPool mailPool;
     private Building building;
+    private static HashMap<String, IRobotBehaviour> behaviours = new HashMap<>();
     
-    public Automail(IMailDelivery delivery, int floors, int lowestFloor, int mailRoomLocation) {
+    /**
+     * 
+     * @param delivery delivery class for robot
+     * @param floors number of floors in building
+     * @param lowestFloor lowest floor in building
+     * @param mailRoomLocation floor mailroom is on
+     * @param behaviour String representing type of robot behaviour to use. Must match one specified in makeBehaviour
+     */
+    public Automail(IMailDelivery delivery, int floors, int lowestFloor, int mailRoomLocation, String behaviour_s) {
     	// jason: still to do
         //          make robot dynamically
     	/** Initialize the MailPool */
     	mailPool = new MailPool();
     	
         /** Initialize the RobotAction */
-    	// IRobotBehaviour robotBehaviour = new SimpleRobotBehaviour();
-    	IRobotBehaviour robotBehaviour = new SmartRobotBehaviour();
+        IRobotBehaviour robotBehaviour = null;
+        
+        // jason: I see two ways of doing this
+    	// option a
+        // more coupling: has an instance of each robot type ready to go
+//        if(behaviours.containsKey(behaviour_s)){
+//            robotBehaviour = behaviours.get(behaviour_s);
+//        }else{
+//            System.err.println("Specified robot behaviour " + behaviour_s + " not found");
+//            System.exit(1);
+//        }
+        
+        // option b
+        // harder to add more types in future
+        switch(behaviour_s){
+            case("Small_Comms_Simple"):
+                robotBehaviour = new SimpleRobotBehaviour();
+                break;
+            case("Small_Comms_Smart"):
+                robotBehaviour = new SmartRobotBehaviour();
+                break;
+            case("Big_Simple"):
+                robotBehaviour = new BigSimpleRobotBehaviour();
+                break;
+            default:
+              System.err.println("Specified robot behaviour " + behaviour_s + " not found");
+              System.exit(1);
+        }
+        System.out.println(robotBehaviour.getClass());
     	    	
     	/** Initialize robot */
         building = new Building(floors, lowestFloor, mailRoomLocation);
@@ -55,6 +92,10 @@ public class Automail {
     
     public Building getBuilding(){
         return building;
+    }
+    
+    public static void addBehaviour(String description, IRobotBehaviour behaviour){
+        behaviours.put(description, behaviour);
     }
     
     
