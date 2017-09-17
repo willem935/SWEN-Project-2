@@ -140,5 +140,9 @@ public class MailGenerator {
         }
         return priority;
     }
+
+    public int getMailToCreate() {
+        return MAIL_TO_CREATE;
+    }
     
 }

@@ -18,7 +18,7 @@ public class Simulation {
 
     
     private static final String FILENAME = "automail.Properties";
-    private static ArrayList<MailItem> MAIL_DELIVERED;
+    private static ArrayList<MailItem> mailDelivered;
     private static double total_score = 0;
     
     private static Properties automailProperties = new Properties();
@@ -26,23 +26,9 @@ public class Simulation {
     public static void main(String[] args) throws IOException{
         loadProperties();
 
-        MAIL_DELIVERED = new ArrayList<MailItem>();
+        mailDelivered = new ArrayList<MailItem>();
         
-        // get the building properties to give to Automail
-        int buildingFloors = Integer.parseInt(automailProperties.getProperty("Number_of_Floors"));
-        int mRFloor = Integer.parseInt(automailProperties.getProperty("Location_of_MailRoom"));
-        int lowFloor = Integer.parseInt(automailProperties.getProperty("Bottom_Floor"));
-        
-        
-        String behaviourName = automailProperties.getProperty("Robot_Type");
-        
-        // all robot behaviours that Automail knows about
-        // should probably put this in its own method, here or in Automail
-        Automail.addBehaviour("Small_Comms_Simple", new SimpleRobotBehaviour());
-        Automail.addBehaviour("Small_Comms_Smart", new SmartRobotBehaviour());
-        Automail.addBehaviour("Big_Smart", new BigSimpleRobotBehaviour());
-        
-        Automail automail = new Automail(new ReportDelivery(), buildingFloors, lowFloor, mRFloor, behaviourName);
+        Automail automail = makeAutomail();
         MailGenerator generator = makeGenerator(automail, args);
         
         
@@ -51,12 +37,29 @@ public class Simulation {
         
         // run the simulation until all mail is delivered
         int priority;
-        while(MAIL_DELIVERED.size() != generator.MAIL_TO_CREATE) {
+        while(mailDelivered.size() != generator.getMailToCreate()) {
             priority = generator.step();
             automail.step(priority);
         
         }
         printResults();
+    }
+
+    private static Automail makeAutomail(){
+        
+        // get the building properties to give to Automail
+        int buildingFloors = Integer.parseInt(automailProperties.getProperty("Number_of_Floors"));
+        int mRFloor = Integer.parseInt(automailProperties.getProperty("Location_of_MailRoom"));
+        int lowFloor = Integer.parseInt(automailProperties.getProperty("Bottom_Floor"));
+        String behaviourName = automailProperties.getProperty("Robot_Type");
+        
+        // all robot behaviours that Automail knows about (for option a)
+        Automail.addBehaviour("Small_Comms_Simple", new SimpleRobotBehaviour());
+        Automail.addBehaviour("Small_Comms_Smart", new SmartRobotBehaviour());
+        Automail.addBehaviour("Big_Smart", new BigSimpleRobotBehaviour());
+        
+        Automail automail = new Automail(new ReportDelivery(), buildingFloors, lowFloor, mRFloor, behaviourName);
+        return automail;
     }
 
     
@@ -98,9 +101,9 @@ public class Simulation {
     	
 	    	/** Confirm the delivery and calculate the total score */
 	    	public void deliver(MailItem deliveryItem){
-	    		if(!MAIL_DELIVERED.contains(deliveryItem)){
+	    		if(!mailDelivered.contains(deliveryItem)){
 	    			System.out.println("T: "+Clock.Time()+" | Delivered " + deliveryItem.toString());
-	    			MAIL_DELIVERED.add(deliveryItem);
+	    			mailDelivered.add(deliveryItem);
 	    			// Calculate delivery score
 	    			total_score += calculateDeliveryScore(deliveryItem, 
 	                                Double.parseDouble(automailProperties.getProperty("Delivery_Penalty")));

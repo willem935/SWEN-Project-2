@@ -23,16 +23,28 @@ public class Automail {
      * @param behaviour String representing type of robot behaviour to use. Must match one specified in makeBehaviour
      */
     public Automail(IMailDelivery delivery, int floors, int lowestFloor, int mailRoomLocation, String behaviour_s) {
-    	// jason: still to do
-        //          make robot dynamically
     	/** Initialize the MailPool */
     	mailPool = new MailPool();
     	
+
         /** Initialize the RobotAction */
+        IRobotBehaviour robotBehaviour = chooseBehaviour(behaviour_s);
+    	    	
+    	/** Initialize robot */
+        building = new Building(floors, lowestFloor, mailRoomLocation);
+    	robot = new Robot(robotBehaviour, delivery, mailPool, building);
+    	
+    }
+
+    /**
+     * used to create an IRobotBehaviour based on behaviour_s
+     * @param behaviour_s description of robot type from automail.Properties
+     * @return a concrete implementation of IRobotBehaviour
+     */
+    private IRobotBehaviour chooseBehaviour(String behaviour_s) {
         IRobotBehaviour robotBehaviour = null;
-        
         // jason: I see two ways of doing this
-    	// option a
+        // option a
         // more coupling: has an instance of each robot type ready to go
 //        if(behaviours.containsKey(behaviour_s)){
 //            robotBehaviour = behaviours.get(behaviour_s);
@@ -40,7 +52,7 @@ public class Automail {
 //            System.err.println("Specified robot behaviour " + behaviour_s + " not found");
 //            System.exit(1);
 //        }
-        
+
         // option b
         // harder to add more types in future
         switch(behaviour_s){
@@ -54,15 +66,12 @@ public class Automail {
                 robotBehaviour = new BigSimpleRobotBehaviour();
                 break;
             default:
-              System.err.println("Specified robot behaviour " + behaviour_s + " not found");
-              System.exit(1);
+                System.err.println("Specified robot behaviour " + behaviour_s + " not found");
+                System.exit(1);
         }
         System.out.println(robotBehaviour.getClass());
-    	    	
-    	/** Initialize robot */
-        building = new Building(floors, lowestFloor, mailRoomLocation);
-    	robot = new Robot(robotBehaviour, delivery, mailPool, building);
-    	
+        
+        return robotBehaviour;
     }
     
     public void step(int priority){
