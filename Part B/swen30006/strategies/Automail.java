@@ -23,17 +23,17 @@ public class Automail {
      * @param behaviour String representing type of robot behaviour to use. Must match one specified in makeBehaviour
      */
     public Automail(IMailDelivery delivery, int floors, int lowestFloor, int mailRoomLocation, String behaviour_s) {
-    	/** Initialize the MailPool */
-    	mailPool = new MailPool();
-    	
-
-        /** Initialize the RobotAction */
-        IRobotBehaviour robotBehaviour = chooseBehaviour(behaviour_s);
-    	    	
-    	/** Initialize robot */
-        building = new Building(floors, lowestFloor, mailRoomLocation);
-    	robot = new Robot(robotBehaviour, delivery, mailPool, building);
-    	
+	    	/** Initialize the MailPool */
+	    	mailPool = new MailPool();
+	    	
+	
+	    /** Initialize the RobotAction */
+	    IRobotBehaviour robotBehaviour = chooseBehaviour(behaviour_s);
+	    	    	
+	    	/** Initialize robot */
+	    building = new Building(floors, lowestFloor, mailRoomLocation);
+	    	robot = new Robot(robotBehaviour, delivery, mailPool, building);
+	    	
     }
 
     /**

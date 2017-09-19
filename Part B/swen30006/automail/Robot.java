@@ -68,43 +68,43 @@ public class Robot {
 	                if(current_floor == building.getMailRoomLocation()){
 	                	changeState(RobotState.WAITING);
 	                } else {
-	                	/** If the robot is not at the mailroom floor yet, then move towards it! */
+	                		/** If the robot is not at the mailroom floor yet, then move towards it! */
 	                    moveTowards(building.getMailRoomLocation());
-	                	break;
+	                		break;
 	                }
 	    		case WAITING:
 	    			/** Tell the sorter the robot is ready */
-	                go = behaviour.fillStorageTube(mailPool, tube);
-	                // System.out.println("Tube total size: "+tube.getTotalOfSizes());
-	                /** If the StorageTube is ready and the Robot is waiting in the mailroom then start the delivery */
-	                if(go){
-		                	deliveryCounter = 0; // reset delivery counter
-		                	setRoute();
-		                	changeState(RobotState.DELIVERING);
-	                }
+	            go = behaviour.fillStorageTube(mailPool, tube);
+	            // System.out.println("Tube total size: "+tube.getTotalOfSizes());
+	            /** If the StorageTube is ready and the Robot is waiting in the mailroom then start the delivery */
+	            if(go){
+	            		deliveryCounter = 0; // reset delivery counter
+	            		setRoute();
+	            		changeState(RobotState.DELIVERING);
+	            }
 	                
-	                break;
+	            break;
 	    		case DELIVERING:
 	    			/** Check whether or not the call to return is triggered manually **/
 	    			if(current_floor == destination_floor){ // If already here drop off item
-                                    /** Delivery complete, report this to the simulator! */
-                                    delivery.deliver(deliveryItem);
-                                    tube.pop();
-                                    deliveryCounter++;
-                                    // Will 13/9 **** removed magic number '4'
-                                    if(deliveryCounter > tube.getCapacity()){
-                                                throw new ExcessiveDeliveryException();
-                                    }
-                                    /** Check if want to return or if there are more items in the tube */
+	    				/** Delivery complete, report this to the simulator! */
+                    delivery.deliver(deliveryItem);
+                    tube.pop();
+                    deliveryCounter++;
+                    // Will 13/9 **** removed magic number '4'
+                    if(deliveryCounter > tube.getCapacity()){
+                    		throw new ExcessiveDeliveryException();
+                    }
+                    /** Check if want to return or if there are more items in the tube */
                                     
-                                    if(tube.isEmpty() || behaviour.returnToMailRoom(tube)){ // No items or robot requested return
-                                        changeState(RobotState.RETURNING);
-                                    }
-                                    else{
-                                        /** If there are more items, set the robot's route to the location to deliver the item */
-                                        setRoute();
-                                        changeState(RobotState.DELIVERING);
-                                    }
+                    if(tube.isEmpty() || behaviour.returnToMailRoom(tube)){ // No items or robot requested return
+                    		changeState(RobotState.RETURNING);
+                    }
+                    else{
+                    		/** If there are more items, set the robot's route to the location to deliver the item */
+                    		setRoute();
+                    		changeState(RobotState.DELIVERING);
+                    }
 	    			} else {
 		    			if(behaviour.returnToMailRoom(tube)){  // Robot requested return
 		    				changeState(RobotState.RETURNING);

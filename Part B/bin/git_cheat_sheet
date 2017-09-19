@@ -1,0 +1,33 @@
+Taken from https://www.sitepoint.com/git-for-beginners/
+
+git init	initialise Git in a directory
+
+git config --global user.name <username> 	set username
+git config --global user.email <email>		set email
+git config --global color.ui 'auto'		colour the output autmatically
+
+git status				check status of repo
+git add <file1> <file2> ...		tell Git to track files
+git add -A				git tracks all files in dir
+
+git rm --cached <file>			stop tracking, but keep file
+
+git commit				commit changes, will prompt for message
+git commit -m "message"			commit changes w/ message
+
+git diff				view changes to tracked files
+git diff <file>				view changes to file
+git add -u				update tracked files for commit
+
+git log					check project history
+
+git show <hash>				view details of particular commit
+
+git remote add origin <address>		set origin to remote directory (github)
+git push -u origin master		push files to github
+
+git clone <address>			clone files from github
+git branch				show list of branches in repo
+git branch [branch_name]		create new branch
+git checkout [branch_name] 		switch to branch
+git checkout -b [branch_name]		create + switch
