@@ -9,11 +9,11 @@ import strategies.IMailPool;
  */
 public class MailGenerator {
 
-    public final int MAIL_TO_CREATE;
+    public int MAIL_TO_CREATE;
 
     private int mailCreated;
 
-    private final Random random;
+    private Random random;
     /** This seed is used to make the behaviour deterministic */
     
     private boolean complete;
@@ -46,9 +46,18 @@ public class MailGenerator {
         this.building = building;
     }
 
-    public MailGenerator(int mailToCreate, int variance, IMailPool mailPool, Building building, long seed){
-            this(mailToCreate,variance, mailPool, building);
-            random.setSeed(seed);
+    public MailGenerator(int mailToCreate, int variance, IMailPool mailPool, Building building, int seed){
+        this(mailToCreate,variance, mailPool, building);
+        random.setSeed(seed);
+        
+        // 19/9 Jason: added these lines here as well, to overwrite MAIL_TO_CREATE
+        // after the seed is set
+        
+        // Vary arriving mail by +/-variance%
+        float variance_fraction = ((float) 20)/100;
+        int lower_bound = Math.round(mailToCreate*(1-variance_fraction));
+        int upper_bound = Math.round(mailToCreate*variance_fraction);
+        MAIL_TO_CREATE = lower_bound+ random.nextInt(upper_bound);
     }
     
 
@@ -88,7 +97,8 @@ public class MailGenerator {
      * @return a random arrival time before the last delivery time
      */
     private int generateArrivalTime(){
-        return 1 + random.nextInt(Clock.LAST_DELIVERY_TIME);
+        // 19/9 Jason: changed LAST_DELIVERY_TIME -> getLastDeliveryTime()
+        return 1 + random.nextInt(Clock.getLastDeliveryTime());
     }
 
 

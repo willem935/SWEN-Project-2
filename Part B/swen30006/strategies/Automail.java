@@ -69,7 +69,6 @@ public class Automail {
                 System.err.println("Specified robot behaviour " + behaviour_s + " not found");
                 System.exit(1);
         }
-        System.out.println(robotBehaviour.getClass());
         
         return robotBehaviour;
     }

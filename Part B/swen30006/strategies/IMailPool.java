@@ -25,7 +25,7 @@ public interface IMailPool {
      * Adds an item to the mail pool
      * @param mailItem the mail item being added.
      */
-    void addToPool(MailItem mailItem);
+    public void addToPool(MailItem mailItem);
     
     /**
      * @return the earliest arrived nonPriority mail item from the mail pool
