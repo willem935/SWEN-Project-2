@@ -41,7 +41,7 @@ public abstract class StorageTube {
      * @return the first item in the storage tube (without removing it)
      */
     public MailItem peek() {
-    	return tube.peek();
+    		return tube.peek();
     }
 
     /**
@@ -60,7 +60,7 @@ public abstract class StorageTube {
 
     /** @return the size of the tube **/
     public int getSize(){
-    	return tube.size();
+    		return tube.size();
     }
     
     /** 

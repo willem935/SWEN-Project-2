@@ -7,6 +7,10 @@ import exceptions.TubeFullException;
 import strategies.IMailPool;
 import strategies.IRobotBehaviour;
 
+// Will added import of spec behaviours to do a Creator build of tube within robot
+import strategies.SimpleRobotBehaviour;
+import strategies.BigSimpleRobotBehaviour;
+import strategies.SmartRobotBehaviour;
 
 
 // note 
@@ -43,17 +47,34 @@ public class Robot {
      */
     public Robot(IRobotBehaviour behaviour, IMailDelivery delivery, IMailPool mailPool, Building building){
         // current_state = RobotState.WAITING;
-    	current_state = RobotState.RETURNING;
+    		current_state = RobotState.RETURNING;
         this.building = building;
         current_floor = building.getMailRoomLocation();
         this.behaviour = behaviour;
-        tube = behaviour.getTube();
+        tube = createTube();
+        
         this.delivery = delivery;
         this.mailPool = mailPool;
         this.deliveryCounter = 0;
     }
+    // WIll 19/9 - I have changed a few things around here so that it follows the creator pattern
+    // its not great so if you guys dont like it let me know and we can change it back. I just thought that this would give us something to else to talk about.
+    private StorageTube createTube() {
+    		if (behaviour instanceof BigSimpleRobotBehaviour ) {
+    			return new BigTube();
+    			
+    		} else if (behaviour instanceof SimpleRobotBehaviour ) {
+    			return new SmallTube();
+    			
+    		} else if (behaviour instanceof SmartRobotBehaviour ) {
+    			return new SmallTube();
+    		}
+    		// Return a error message and break
+    		
+    		return null;
+	}
 
-    /**
+	/**
      * This is called on every time step
      * @throws ExcessiveDeliveryException if robot delivers more than the capacity of the tube without refilling
      */

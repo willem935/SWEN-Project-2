@@ -76,6 +76,7 @@ public class Simulation {
      * @param args command line args. Used to check for seed
      * @return
      */
+    
     private static MailGenerator makeGenerator(Automail automail, String[] args) {
         int mailToCreate = Integer.parseInt(automailProperties.getProperty("Mail_to_Create"));
         int mailVariance = Integer.parseInt(automailProperties.getProperty("Mail_Count_Percentage_Variation"));

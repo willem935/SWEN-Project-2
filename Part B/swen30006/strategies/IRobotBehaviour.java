@@ -24,8 +24,7 @@ public interface IRobotBehaviour {
     
     /**
      * 
-     * @return StorageTube of appropriate type for behaviour
+     * @return The tube size for the appropriate for behaviour
      */
-    
-    public StorageTube getTube();
+    public int getTubeSize();
 }
