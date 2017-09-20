@@ -31,12 +31,13 @@ public class BigSimpleRobotBehaviour implements IRobotBehaviour{
 		
 		// Grab priority mail
 		while(tempTube.size() < tube.getCapacity()){
-			if(containMail(mailPool,MailPool.PRIORITY_POOL)){
+                    // 20/9 Jason: removed 2 calls to containMail()
+			if(mailPool.getPriorityPoolSize() > 0){
 				tempTube.add(mailPool.getHighestPriorityMail());
 			}
 			else{
 				// Fill it up with non priority
-				if(containMail(mailPool,MailPool.NON_PRIORITY_POOL)){
+				if(mailPool.getNonPriorityPoolSize() > 0){
 					tempTube.add(mailPool.getNonPriorityMail());
 				}
 				else{
@@ -64,18 +65,6 @@ public class BigSimpleRobotBehaviour implements IRobotBehaviour{
 			return true;
 		}
 		return false;
-	}
-	
-	private boolean containMail(IMailPool m, String mailPoolIdentifier){
-		if(mailPoolIdentifier.equals(MailPool.PRIORITY_POOL) && m.getPriorityPoolSize() > 0){
-			return true;
-		}
-		else if(mailPoolIdentifier.equals(MailPool.NON_PRIORITY_POOL) && m.getNonPriorityPoolSize() > 0){
-			return true;
-		}
-		else{
-			return false;
-		}
 	}
 
     @Override

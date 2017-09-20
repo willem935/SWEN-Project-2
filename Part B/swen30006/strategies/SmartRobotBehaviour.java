@@ -74,7 +74,6 @@ public class SmartRobotBehaviour implements IRobotBehaviour{
 		// Grab priority mail
 		while( tempTube.size()  < tube.getCapacity()){
 			if(mailPool.getPriorityPoolSize() > 0){//LEE: removed containMail call, seems redundant when we have these get__Size() functionality
-			//if(containMail(mailPool,MailPool.PRIORITY_POOL)){
 				tempTube.add(mailPool.getHighestPriorityMail());
 			}
 			else {
@@ -107,18 +106,6 @@ public class SmartRobotBehaviour implements IRobotBehaviour{
 			return true;
 		}
 		return false;
-	}
-	
-	private boolean containMail(IMailPool m, String mailPoolIdentifier){
-		if(mailPoolIdentifier.equals(MailPool.PRIORITY_POOL) && m.getPriorityPoolSize() > 0){
-			return true;
-		}
-		else if(mailPoolIdentifier.equals(MailPool.NON_PRIORITY_POOL) && m.getNonPriorityPoolSize() > 0){
-			return true;
-		}
-		else{
-			return false;
-		}
 	}
 
 	
