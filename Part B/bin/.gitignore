@@ -1,9 +1,17 @@
 /Part B/nbproject/private/
 /Part B/build/
-/Part B/
+/.DS_Store
+/.classpath
+/.gitignore
+/.project
 /.settings/
+/Part B/
+/PartB.pdf
+/automail.Properties
 /automail/
 /exceptions/
+/git_cheat_sheet
 /strategies/
-/automail.Properties
-/ReportDeliveryMath/
+/sweetassfile
+/robot/
+/simulation/

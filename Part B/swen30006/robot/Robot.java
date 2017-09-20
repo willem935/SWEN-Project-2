@@ -1,10 +1,15 @@
-package automail;
+package robot;
 
 
 
+import automail.Building;
+import automail.IMailDelivery;
+import automail.IMailPool;
+import automail.MailItem;
+import automail.StorageTube;
 import exceptions.ExcessiveDeliveryException;
 import exceptions.TubeFullException;
-import strategies.IMailPool;
+import simulation.Clock;
 import strategies.IRobotBehaviour;
 
 // Will added import of spec behaviours to do a Creator build of tube within robot
@@ -60,6 +65,7 @@ public class Robot {
     
     // WIll 19/9 - I have changed a few things around here so that it follows the creator pattern
     // its not great so if you guys dont like it let me know and we can change it back. I just thought that this would give us something to else to talk about.
+    
     private StorageTube createTube() {
     		if (behaviour instanceof BigSimpleRobotBehaviour ) {
     			return new BigTube();
@@ -69,9 +75,10 @@ public class Robot {
     			
     		} else if (behaviour instanceof SmartRobotBehaviour ) {
     			return new SmallTube();
+    		} else {
+    			System.out.println("An invalid Robot behaviour was used. Please try again with a valid Behaviour.");
+    			System.exit(0);
     		}
-    		// Return a error message and break
-    		
     		return null;
 	}
 

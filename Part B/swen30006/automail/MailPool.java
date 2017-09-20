@@ -1,11 +1,8 @@
-package strategies;
+package automail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-
-import automail.MailItem;
-import automail.PriorityMailItem;
 
 public class MailPool implements IMailPool{
 	

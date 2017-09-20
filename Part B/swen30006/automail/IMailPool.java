@@ -1,6 +1,4 @@
-package strategies;
-
-import automail.MailItem;
+package automail;
 
 /**
  * A MailPool is called from MailGenerator during a certain time step

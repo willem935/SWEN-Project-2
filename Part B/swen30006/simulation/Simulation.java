@@ -1,12 +1,15 @@
-package automail;
+package simulation;
 
 import exceptions.MailAlreadyDeliveredException;
-import strategies.Automail;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
+
+import automail.Automail;
+import automail.IMailDelivery;
+import automail.MailItem;
 import strategies.BigSimpleRobotBehaviour;
 import strategies.SimpleRobotBehaviour;
 import strategies.SmartRobotBehaviour;

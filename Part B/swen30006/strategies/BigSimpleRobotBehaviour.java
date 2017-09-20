@@ -1,12 +1,14 @@
 package strategies;
 
-import automail.BigTube;
 import java.util.Comparator;
 import java.util.ArrayList;
 
+import automail.IMailPool;
 import automail.MailItem;
+import automail.MailPool;
 import automail.StorageTube;
 import exceptions.TubeFullException;
+import robot.BigTube;
 
 public class BigSimpleRobotBehaviour implements IRobotBehaviour{
 	

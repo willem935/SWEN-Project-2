@@ -1,8 +1,11 @@
-package automail;
+package simulation;
 
 import java.util.*;
 
-import strategies.IMailPool;
+import automail.Building;
+import automail.IMailPool;
+import automail.MailItem;
+import automail.PriorityMailItem;
 
 /**
  * This class generates the mail

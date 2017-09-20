@@ -1,4 +1,6 @@
-package automail;
+package robot;
+
+import automail.StorageTube;
 
 // import exceptions.RobotNotInMailRoomException;
 

@@ -1,5 +1,6 @@
 package strategies;
 
+import automail.IMailPool;
 import automail.StorageTube;
 
 public interface IRobotBehaviour {
@@ -22,9 +23,5 @@ public interface IRobotBehaviour {
      */
     public boolean fillStorageTube(IMailPool mailPool, StorageTube tube);
     
-    /**
-     * 
-     * @return The tube size for the appropriate for behaviour
-     */
-    public int getTubeSize();
+
 }

@@ -1,10 +1,13 @@
-package strategies;
+package automail;
 
-import automail.Building;
-import automail.Clock;
-import automail.IMailDelivery;
-import automail.Robot;
 import exceptions.ExcessiveDeliveryException;
+import robot.Robot;
+import simulation.Clock;
+import strategies.BigSimpleRobotBehaviour;
+import strategies.IRobotBehaviour;
+import strategies.SimpleRobotBehaviour;
+import strategies.SmartRobotBehaviour;
+
 import java.util.HashMap;
 
 public class Automail {

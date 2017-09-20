@@ -1,8 +1,9 @@
 package strategies;
+import automail.IMailPool;
 import automail.PriorityMailItem;
-import automail.SmallTube;
 import automail.StorageTube;
 import exceptions.TubeFullException;
+import robot.SmallTube;
 
 public class SimpleRobotBehaviour implements IRobotBehaviour {
 	

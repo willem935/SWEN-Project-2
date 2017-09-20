@@ -1,4 +1,4 @@
-package automail;
+package simulation;
 
 public class Clock {
 	

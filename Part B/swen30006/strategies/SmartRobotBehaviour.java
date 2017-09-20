@@ -3,11 +3,13 @@ package strategies;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+import automail.IMailPool;
 import automail.MailItem;
+import automail.MailPool;
 import automail.PriorityMailItem;
-import automail.SmallTube;
 import automail.StorageTube;
 import exceptions.TubeFullException;
+import robot.SmallTube;
 
 public class SmartRobotBehaviour implements IRobotBehaviour{
 	
