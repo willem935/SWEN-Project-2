@@ -6,7 +6,6 @@ import automail.Building;
 import automail.IMailPool;
 import automail.MailItem;
 import exceptions.ExcessiveDeliveryException;
-import exceptions.TubeFullException;
 import simulation.Clock;
 import simulation.IMailDelivery;
 import strategies.IRobotBehaviour;

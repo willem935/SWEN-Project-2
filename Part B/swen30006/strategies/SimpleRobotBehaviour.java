@@ -6,7 +6,6 @@ import robot.StorageTube;
 
 public class SimpleRobotBehaviour implements IRobotBehaviour {
 	
-	//private static final int MAX_TAKE = 4;
 	private boolean newPriority; // Used if we are notified that a priority item has arrived. 
 		
 	public SimpleRobotBehaviour() {
