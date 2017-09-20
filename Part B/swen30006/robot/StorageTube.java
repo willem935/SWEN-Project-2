@@ -1,9 +1,11 @@
-package automail;
+package robot;
 
 // import exceptions.RobotNotInMailRoomException;
 import exceptions.TubeFullException;
 
 import java.util.Stack;
+
+import automail.MailItem;
 
 /**
  * The storage tube carried by the robot.

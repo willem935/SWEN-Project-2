@@ -7,9 +7,8 @@ import automail.IMailPool;
 import automail.MailItem;
 import automail.MailPool;
 import automail.PriorityMailItem;
-import automail.StorageTube;
 import exceptions.TubeFullException;
-import robot.SmallTube;
+import robot.StorageTube;
 
 public class SmartRobotBehaviour implements IRobotBehaviour{
 	
@@ -122,10 +121,6 @@ public class SmartRobotBehaviour implements IRobotBehaviour{
 		}
 	}
 
-    @Override
-    public StorageTube getTube() {
-        return new SmallTube();
-    }
 	
 	private class ArrivalComparer implements Comparator<MailItem>{
 

@@ -1,7 +1,5 @@
 package robot;
 
-import automail.StorageTube;
-
 /**
  * The storage tube carried by the robot.
  */

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import automail.Automail;
-import automail.IMailDelivery;
 import automail.MailItem;
 import strategies.BigSimpleRobotBehaviour;
 import strategies.SimpleRobotBehaviour;
@@ -27,8 +26,8 @@ public class Simulation {
     private static Properties automailProperties = new Properties();
 
     public static void main(String[] args) throws IOException{
-        loadProperties();
-
+        
+    		loadProperties();
         mailDelivered = new ArrayList<MailItem>();
         
         // 19/9 Jason: set the last time based on Automail.properties
@@ -48,11 +47,19 @@ public class Simulation {
         while(mailDelivered.size() != generator.getMailToCreate()) {
             priority = generator.step();
             automail.step(priority);
-        
         }
         printResults();
     }
 
+    
+    private static void loadProperties() throws IOException {
+        FileReader inStream = new FileReader(FILENAME);
+        automailProperties.load(inStream);
+        inStream.close();
+    }
+    
+    
+   
     private static Automail makeAutomail(){
         
         // get the building properties to give to Automail
@@ -70,14 +77,6 @@ public class Simulation {
         return automail;
     }
 
-    
-    
-    
-    private static void loadProperties() throws IOException {
-        FileReader inStream = new FileReader(FILENAME);
-        automailProperties.load(inStream);
-        inStream.close();
-    }
     /**
      * 
      * @param automail 

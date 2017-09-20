@@ -3,6 +3,7 @@ package automail;
 import exceptions.ExcessiveDeliveryException;
 import robot.Robot;
 import simulation.Clock;
+import simulation.IMailDelivery;
 import strategies.BigSimpleRobotBehaviour;
 import strategies.IRobotBehaviour;
 import strategies.SimpleRobotBehaviour;

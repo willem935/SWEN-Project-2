@@ -6,13 +6,11 @@ import java.util.ArrayList;
 import automail.IMailPool;
 import automail.MailItem;
 import automail.MailPool;
-import automail.StorageTube;
 import exceptions.TubeFullException;
-import robot.BigTube;
+import robot.StorageTube;
 
 public class BigSimpleRobotBehaviour implements IRobotBehaviour{
 	
-	private boolean newPriority; // Used if we are notified that a priority item has arrived. 
 		
 	public BigSimpleRobotBehaviour() {}
 
@@ -86,10 +84,7 @@ public class BigSimpleRobotBehaviour implements IRobotBehaviour{
         return false;
     }
 
-    @Override
-    public StorageTube getTube() {
-        return new BigTube();
-    }
+ 
 	
 	private class ArrivalComparer implements Comparator<MailItem>{
 

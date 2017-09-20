@@ -1,7 +1,7 @@
 package strategies;
 
 import automail.IMailPool;
-import automail.StorageTube;
+import robot.StorageTube;
 
 public interface IRobotBehaviour {
 	
