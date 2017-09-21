@@ -1,3 +1,11 @@
+/* SWEN30006 Software Modelling and Design 
+ * Semester 2, 2017
+ * MailItem Class - Contains the architecture for the construction of a non-priority MailItem instance
+ * as well as a getPriorityLevel method for use in comparing nonPriorityMailItems to priorityMailItems
+ * Authors: <Willem Stewart> <Lee Mintz> <Jason Pursey>
+ * Student Numbers: <695852> <932739> <637551>
+ */
+
 package automail;
 
 import java.util.UUID;
@@ -25,6 +33,9 @@ public class MailItem {
         this.ARRIVAL_TIME = arrival_time;
     }
 
+    /**
+     * @return String containing MailItem's ID, Destination floor, and Arrival time
+     */
     @Override
     public String toString(){
         return "Mail Item: " +
@@ -50,10 +61,11 @@ public class MailItem {
         return ID;
     }
 
-    /* Gives regular mail items a priority of 0 so we don't have to constantly
+    /**
+     * Gives regular mail items a priority of 0 so we don't have to constantly
      * check for instances of prioritymailitems whenever we want to calculate
      * priority levels.
-     * return 0. overridden by prioritymailitem objects when necessary
+     * @return 0 as default priority level. Overridden by prioritymailitem objects when necessary
      */
     public int getPriorityLevel(){
     	return 0;

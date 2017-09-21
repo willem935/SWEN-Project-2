@@ -1,3 +1,14 @@
+/* SWEN30006 Software Modelling and Design 
+ * Semester 2, 2017
+ * MailPool Class - Contains the functionality for creating and managing pools of priority
+ * and non-priority mailItems.
+ * It contains comparators for sorting priorityMailItems items by priority level, and 
+ * non-priorityMailItems by arrival time.
+ * 
+ * Authors: <Willem Stewart> <Lee Mintz> <Jason Pursey>
+ * Student Numbers: <695852> <932739> <637551>
+ */
+
 package automail;
 
 import java.util.ArrayList;
@@ -5,9 +16,7 @@ import java.util.Comparator;
 
 public class MailPool implements IMailPool{
 	
-	public static final String PRIORITY_POOL = "PRIORITY_POOL";
-	public static final String NON_PRIORITY_POOL = "NON_PRIORITY_POOL";
-	
+
 	private ArrayList<MailItem> nonPriorityPool;
 	private ArrayList<MailItem> priorityPool;
 	
@@ -24,21 +33,33 @@ public class MailPool implements IMailPool{
 		return nonPriorityPool.size();
 	}
 
+	/**
+	 * Adds a mailItem to one of the two mailPool ArrayLists based on whether it is a PriorityMailItem or not.
+	 * Once added, addToPool calls the .sort() method available to ArrayLists, giving the appropriate comparator
+	 * as an argument, so that the highest priority / earliest arriving items of each pool are closest to the head.
+	 * @param mailItem mailItem instance to be added
+	 * 
+	 */
 	public void addToPool(MailItem mailItem) {
 		// Check whether it has a priority or not
 		if(mailItem instanceof PriorityMailItem){
 			// Add to priority items
 			priorityPool.add(mailItem);
+			// Sort to maintain that highest priority items at front
 			priorityPool.sort(new PriorityComparer());
 
 		}
 		else{
 			// Add to nonpriority items
 			nonPriorityPool.add(mailItem);
+			// Sort to maintain that earliest arriving items at front
 			nonPriorityPool.sort(new NonPriorityComparer());
 		}
 	}
 	
+	/**
+	 * Returns the MailItem at the head of the nonPriorityPool if one exists, or null if not.
+	 */
 	public MailItem getNonPriorityMail(){
 		if(getNonPriorityPoolSize() > 0){
 			return nonPriorityPool.remove(0);
@@ -47,7 +68,9 @@ public class MailPool implements IMailPool{
 			return null;
 		}
 	}
-	
+	/**
+	 * Returns the MailItem at the head of the PriorityPool if one exists, or null if not.
+	 */
 	public MailItem getHighestPriorityMail(){
 		if(getPriorityPoolSize() > 0){
 			return priorityPool.remove(0);
@@ -57,7 +80,9 @@ public class MailPool implements IMailPool{
 		}
 		
 	}
-	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//getBestMail unused in our current setup. left code here in case it becomes more useful in a future version//
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public MailItem getBestMail(int FloorFrom, int FloorTo) {
 		
 		ArrayList<MailItem> tempPriority = new ArrayList<MailItem>();
@@ -93,6 +118,9 @@ public class MailPool implements IMailPool{
 		return null;
 	}
 	
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//isWithinRange unused in our current setup. left code here in case it becomes more useful in a future version//
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	private boolean isWithinRange(MailItem m, int FloorFrom, int FloorTo){
 
 		if(m.getDestFloor() <= FloorTo && m.getDestFloor() >= FloorFrom){
@@ -107,7 +135,7 @@ public class MailPool implements IMailPool{
 
 	/**
 	 * Comparator classes and helper method
-	 *
+	 * Used by the ArrayList class's sort() function
 	 */
 	private class PriorityComparer implements Comparator<MailItem> {
 		// Compare Priority level, if they are the same, try comparing arrival time
@@ -131,7 +159,12 @@ public class MailPool implements IMailPool{
 			return compareArrival(m1,m2);
 		}
 	}
-	
+	/**
+	 * Checks when two MailItems arrived and returns an int to indicate which is oldest
+	 * @param m1 MailItem to compare
+	 * @param m2 MailItem to compare against
+	 * @return -1 if m1 arrived first, 0 if same, 1 if m2 arrived first
+	 */
 	public static int compareArrival(MailItem m1, MailItem m2){
 		if(m1.getArrivalTime() < m2.getArrivalTime()){
 			return -1;

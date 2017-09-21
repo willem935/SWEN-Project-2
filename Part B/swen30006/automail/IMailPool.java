@@ -51,6 +51,6 @@ public interface IMailPool {
      * @return a mailItem going to a floor in the specified range: this mail item is the highest priority item which arrived first.
      * 
      */
-    public MailItem getBestMail(int FloorFrom, int FloorTo);
+     public MailItem getBestMail(int FloorFrom, int FloorTo);
     
 }
