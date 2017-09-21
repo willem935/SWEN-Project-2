@@ -7,6 +7,7 @@ import automail.IMailPool;
 import automail.MailItem;
 import automail.MailPool;
 import exceptions.TubeFullException;
+import robot.BigTube;
 import robot.StorageTube;
 
 public class BigSimpleRobotBehaviour implements IRobotBehaviour{
@@ -89,6 +90,12 @@ public class BigSimpleRobotBehaviour implements IRobotBehaviour{
 		//big simple doesn't respond to incoming priority item's arriving
 		//so this method shouldn't really do anything.
     }
+
+	@Override
+	public StorageTube createTube() {
+		// TODO Auto-generated method stub
+		return new BigTube();
+	}
  
 	
 

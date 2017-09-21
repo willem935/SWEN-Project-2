@@ -8,6 +8,7 @@ import automail.MailItem;
 import automail.MailPool;
 import automail.PriorityMailItem;
 import exceptions.TubeFullException;
+import robot.SmallTube;
 import robot.StorageTube;
 
 public class SmartRobotBehaviour implements IRobotBehaviour{
@@ -116,6 +117,13 @@ public class SmartRobotBehaviour implements IRobotBehaviour{
 			return MailPool.compareArrival(m1, m2);
 		}
 		
+	}
+
+
+	@Override
+	public StorageTube createTube() {
+		// TODO Auto-generated method stub
+		return new SmallTube();
 	}
 
 }

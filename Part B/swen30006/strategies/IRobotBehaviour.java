@@ -23,5 +23,6 @@ public interface IRobotBehaviour {
      */
     public boolean fillStorageTube(IMailPool mailPool, StorageTube tube);
     
+    public StorageTube createTube();
 
 }

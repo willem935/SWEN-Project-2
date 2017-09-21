@@ -18,8 +18,6 @@ import strategies.IRobotBehaviour;
 import strategies.SimpleRobotBehaviour;
 import strategies.SmartRobotBehaviour;
 
-import java.util.HashMap;
-
 public class Automail {
 	      
     private Robot robot;

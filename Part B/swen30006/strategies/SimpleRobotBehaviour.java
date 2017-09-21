@@ -1,7 +1,9 @@
 package strategies;
+
 import automail.IMailPool;
 import automail.PriorityMailItem;
 import exceptions.TubeFullException;
+import robot.SmallTube;
 import robot.StorageTube;
 
 public class SimpleRobotBehaviour implements IRobotBehaviour {
@@ -61,6 +63,11 @@ public class SimpleRobotBehaviour implements IRobotBehaviour {
 		else {
 			return false;
 		}
+	}
+
+	@Override
+	public StorageTube createTube() {
+		return new SmallTube();
 	}
 
   
