@@ -62,7 +62,7 @@ public class Robot {
      */
     public Robot(IRobotBehaviour behaviour, IMailDelivery delivery, IMailPool mailPool, Building building){
     		
-    		current_state = RobotState.WAITING;
+    		current_state = RobotState.RETURNING;
         this.building = building;
         current_floor = building.getMailRoomLocation();
         this.behaviour = behaviour;
