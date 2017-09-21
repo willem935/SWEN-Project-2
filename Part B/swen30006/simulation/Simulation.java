@@ -90,18 +90,19 @@ public class Simulation {
     private static MailGenerator makeGenerator(Automail automail, String[] args) {
         int mailToCreate = Integer.parseInt(automailProperties.getProperty("Mail_to_Create"));
         int mailVariance = Integer.parseInt(automailProperties.getProperty("Mail_Count_Percentage_Variation"));
+        int priorityChance = Integer.parseInt(automailProperties.getProperty("Priority_Mail_is_One_in"));
         int seed;
         // prioritize properties seed over command line
         if(automailProperties.containsKey("Seed")){
             seed = Integer.parseInt(automailProperties.getProperty("Seed"));
-            return new MailGenerator(mailToCreate, mailVariance, 
+            return new MailGenerator(mailToCreate, mailVariance, priorityChance, 
                     automail.getMailPool(), automail.getBuilding(), seed);
         }else if(args.length != 0){
             seed = Integer.parseInt(args[0]);
-            return new MailGenerator(mailToCreate, mailVariance, 
+            return new MailGenerator(mailToCreate, mailVariance, priorityChance,
                     automail.getMailPool(), automail.getBuilding(), seed);
         }else{
-            return new MailGenerator(mailToCreate, mailVariance, 
+            return new MailGenerator(mailToCreate, mailVariance, priorityChance,
                     automail.getMailPool(), automail.getBuilding());
         }
     }

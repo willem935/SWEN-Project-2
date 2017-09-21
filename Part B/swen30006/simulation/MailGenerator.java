@@ -12,7 +12,9 @@ import automail.PriorityMailItem;
  */
 public class MailGenerator {
 
-    public int MAIL_TO_CREATE;
+    private int mailToCreate;
+    private int priorityChance;
+    
 
     private int mailCreated;
 
@@ -32,7 +34,7 @@ public class MailGenerator {
      * @param seed random seed for generating mail
      */
     
-    public MailGenerator(int mailToCreate, int variance, IMailPool mailPool, Building building){
+    public MailGenerator(int mailToCreate, int variance, int priorityChance, IMailPool mailPool, Building building){
 
         this.random = new Random();
 
@@ -40,7 +42,8 @@ public class MailGenerator {
         float variance_fraction = ((float) variance)/100;
         int lower_bound = Math.round(mailToCreate*(1-variance_fraction));
         int upper_bound = Math.round(mailToCreate*variance_fraction);
-        MAIL_TO_CREATE = lower_bound+ random.nextInt(upper_bound);
+        this.mailToCreate = lower_bound+ random.nextInt(upper_bound);
+        this.priorityChance = priorityChance;
         // System.out.println("Num Mail Items: "+MAIL_TO_CREATE);
         mailCreated = 0;
         complete = false;
@@ -49,18 +52,18 @@ public class MailGenerator {
         this.building = building;
     }
 
-    public MailGenerator(int mailToCreate, int variance, IMailPool mailPool, Building building, int seed){
-        this(mailToCreate,variance, mailPool, building);
+    public MailGenerator(int mailToCreate, int variance, int priorityChance, IMailPool mailPool, Building building, int seed){
+        this(mailToCreate,variance, priorityChance, mailPool, building);
         random.setSeed(seed);
         
         // 19/9 Jason: added these lines here as well, to overwrite MAIL_TO_CREATE
         // after the seed is set
         
         // Vary arriving mail by +/-variance%
-        float variance_fraction = ((float) 20)/100;
+        float variance_fraction = ((float) variance)/100;
         int lower_bound = Math.round(mailToCreate*(1-variance_fraction));
         int upper_bound = Math.round(mailToCreate*variance_fraction);
-        MAIL_TO_CREATE = lower_bound+ random.nextInt(upper_bound);
+        this.mailToCreate = lower_bound+ random.nextInt(upper_bound);
     }
     
 
@@ -72,7 +75,7 @@ public class MailGenerator {
         int priority_level = generatePriorityLevel();
         int arrival_time = generateArrivalTime();
         // Check if arrival time has a priority mail
-        if(	(random.nextInt(6) > 0) ||  // Skew towards non priority mail
+        if(	(random.nextInt(priorityChance) > 0) ||  // Skew towards non priority mail
         	(allMail.containsKey(arrival_time) &&
         	allMail.get(arrival_time).stream().anyMatch(e -> PriorityMailItem.class.isInstance(e)))){
         	return new MailItem(dest_floor,arrival_time);      	
@@ -129,7 +132,7 @@ public class MailGenerator {
             mailCreated++;
 
             /** Once we have satisfied the amount of mail to create, we're done!*/
-            if(mailCreated == MAIL_TO_CREATE){
+            if(mailCreated == mailToCreate){
                 complete = true;
             }
         }
@@ -155,7 +158,7 @@ public class MailGenerator {
     }
 
     public int getMailToCreate() {
-        return MAIL_TO_CREATE;
+        return mailToCreate;
     }
     
 }
