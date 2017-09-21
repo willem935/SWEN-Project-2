@@ -37,7 +37,7 @@ public class MailGenerator {
         this.random = new Random();
 
         // Vary arriving mail by +/-variance%
-        float variance_fraction = ((float) 20)/100;
+        float variance_fraction = ((float) variance)/100;
         int lower_bound = Math.round(mailToCreate*(1-variance_fraction));
         int upper_bound = Math.round(mailToCreate*variance_fraction);
         MAIL_TO_CREATE = lower_bound+ random.nextInt(upper_bound);

@@ -19,7 +19,9 @@ import strategies.SmartRobotBehaviour;
 public class Simulation {
 
     
+    //private static final String FILENAME = "tests/automailBadPriorityChance.Properties";
     private static final String FILENAME = "automail.Properties";
+    
     private static ArrayList<MailItem> mailDelivered;
     private static double total_score = 0;
     
@@ -27,7 +29,8 @@ public class Simulation {
 
     public static void main(String[] args) throws IOException{
         
-    		loadProperties();
+        
+        loadProperties();
         mailDelivered = new ArrayList<MailItem>();
         
         // 19/9 Jason: set the last time based on Automail.properties
