@@ -127,6 +127,11 @@ public class Simulation {
     
     
     // DONT REALLY KNOW WHAT TO COMMENT ON THIS ONE **************
+    
+    /**
+     * Contains the back end details necessary for the automail simulation to ensure that MailItem instances are not
+     * delivered multiple times and handles the calculation of the score for the simulation
+     */
     static class ReportDelivery implements IMailDelivery {
     	
 	    	/** Confirm the delivery and calculate the total score */
