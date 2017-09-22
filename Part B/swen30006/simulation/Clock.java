@@ -16,7 +16,6 @@ public class Clock {
     	Time++;
     }
     
-    // 19/9 Jason: created these methods to allow LDT to be private
     public static void setLastDeliveryTime(int time){
         LAST_DELIVERY_TIME = time;
     }
