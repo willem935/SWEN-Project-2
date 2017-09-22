@@ -60,7 +60,7 @@ public class MailGenerator {
         // Vary arriving mail by +/-variance%
         float variance_fraction = ((float) variance)/100;
         int lower_bound = Math.round(mailToCreate*(1-variance_fraction));
-        int upper_bound = Math.round(mailToCreate*variance_fraction);
+        int upper_bound = Math.round(mailToCreate*2*variance_fraction);
         this.mailToCreate = lower_bound+ random.nextInt(upper_bound);
         
         this.priorityChance = priorityChance;
@@ -84,12 +84,11 @@ public class MailGenerator {
         
     		this(mailToCreate,variance, priorityChance, mailPool, building);
     		// overrides seed with input value
-        random.setSeed(seed);
                 
         // Vary arriving mail by +/-variance%
         float variance_fraction = ((float) variance)/100;
         int lower_bound = Math.round(mailToCreate*(1-variance_fraction));
-        int upper_bound = Math.round(mailToCreate*variance_fraction);
+        int upper_bound = Math.round(mailToCreate*2*variance_fraction);
         this.mailToCreate = lower_bound+ random.nextInt(upper_bound);
     }
     
