@@ -7,7 +7,6 @@
  * Student Numbers: <695852> <932739> <637551>
  */
 
-
 package simulation;
 
 import java.util.*;

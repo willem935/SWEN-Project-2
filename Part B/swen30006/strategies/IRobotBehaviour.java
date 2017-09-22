@@ -34,9 +34,9 @@ public interface IRobotBehaviour {
     public void priorityArrival(int priority);
     
     /**
-     * Creates a new tube for the robot that corresponds to the behaviour specs.
-     * @return Returns a storage tube of the correct size.
-     */
-    public StorageTube createTube();
+	 * Creates a new tube for the robot that corresponds to the behaviour specs.
+	 * @return Returns a storage tube of the correct size.
+	 */
+	public StorageTube createTube();
 
 }
