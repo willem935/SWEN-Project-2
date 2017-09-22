@@ -115,7 +115,7 @@ public class Robot {
                     deliveryCounter++;
 
                     if(deliveryCounter > tube.getCapacity()){
-                    		throw new ExcessiveDeliveryException();
+                    		throw new ExcessiveDeliveryException(tube.getCapacity());
                     }
                     // check if want to return or if there are more items in the tube 
                     if(tube.isEmpty() || behaviour.returnToMailRoom(tube)){ 
