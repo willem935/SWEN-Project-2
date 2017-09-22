@@ -19,9 +19,14 @@ import strategies.SimpleRobotBehaviour;
 import strategies.SmartRobotBehaviour;
 
 public class Automail {
-	      
+	
+	/** Robot used to deliver mail */
     private Robot robot;
+    
+    /** mail pool containing all mail waiting to be delivered */
     private IMailPool mailPool;
+    
+    /** building in which the mail is being delivered */
     private Building building;
     
     /**
